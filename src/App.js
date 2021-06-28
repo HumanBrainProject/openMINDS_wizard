@@ -47,8 +47,10 @@ const schema = {
       "type": "string",
       "title": "Accessibility",
       "examples": [
-        "Free access",
-        "Embargo"
+        "controlled access",
+        "free access",
+        "restricted access",
+        "under embargo"
       ]
     },
     "repositoryUrl" : {
@@ -59,16 +61,43 @@ const schema = {
       "type": "string",
       "title": "Type",
       "examples": [
-        "type1",
-        "type2"
+        "derived data",
+        "experimental data",
+        "raw data",
+        "simulated data"
       ]
     },
     "license": {
       "type": "string",
       "title": "License",
       "examples": [
-        "apache",
-        "mit"
+        "AGPL-3.0-only",
+        "Apache-2.0",
+        "BSD-2-Clause",
+        "BSD-3-Clause",
+        "BSD-4-Clause",
+        "CC BY 4.0",
+        "CC BY-NC 4.0",
+        "CC BY-NC-ND 4.0",
+        "CC BY-NC-SA 4.0",
+        "CC BY-ND 4.0",
+        "CC BY-SA 4.0",
+        "CC0 1.0",
+        "CECILL-2.1",
+        "EUPL-1.2",
+        "GPL-1.0-only",
+        "GPL-1.0-or-later",
+        "GPL-2.0-only",
+        "GPL-2.0-or-later",
+        "GPL-3.0-only",
+        "GPL-3.0-or-later",
+        "LGPL-2.0-only",
+        "LGPL-2.1-only",
+        "LGPL-2.1-or-later",
+        "LGPL-3.0-only",
+        "LGPL-3.0-or-later",
+        "MIT",
+        "MPL-2.0"
       ]
     },
     "fullDocumentation" : {
@@ -95,16 +124,52 @@ const schema = {
       "type": "string",
       "title": "Ethics assessment",
       "examples": [
-        "type1",
-        "type2"
+        "EU compliant, non sensitive",
+        "EU compliant, sensitive",
+        "not required"
       ]
     },
     "experimentalApproach": {
       "type": "string",
       "title": "Experimental approach",
       "examples": [
-        "type1",
-        "type2"
+        "anatomy",
+        "behavior",
+        "cell biology",
+        "cell morphology",
+        "cell population characterization",
+        "cell population imaging",
+        "cell population manipulation",
+        "chemogenetics",
+        "clinical research",
+        "computational modeling",
+        "developmental biology",
+        "ecology",
+        "electrophysiology",
+        "epidemiology",
+        "epigenomics",
+        "ethology",
+        "evolutionary biology",
+        "expression",
+        "expression characterization",
+        "genetics",
+        "genomics",
+        "histology",
+        "informatics",
+        "metabolomics",
+        "microscopy",
+        "morphology",
+        "multimodal research",
+        "multiomics",
+        "neural connectivity",
+        "neuroimaging",
+        "omics",
+        "optogenetics",
+        "physiology",
+        "proteomics",
+        "radiology",
+        "spatial transcriptomics",
+        "transcriptomics"
       ]
     },
     "funding" : {
