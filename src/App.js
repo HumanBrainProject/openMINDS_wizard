@@ -1,5 +1,5 @@
 import './App.css';
-import Form from '@rjsf/bootstrap-4';
+import Form from '@rjsf/core';
 
 const schema = {
   "title": "Dataset form",
@@ -193,6 +193,30 @@ const schema = {
     "inputData" : {
       "type": "string",
       "title": "Input data"
+    },
+    "studiedSpecimen": {
+      "type": "object",
+      "title": "Studied specimen",
+      "properties": {
+        "lookupLabel": {
+          "type": "string",
+          "title": "Lookup label"
+        }
+      }
+    },
+    "protocol": {
+      "type": "object",
+      "title": "Protocol",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "Name"
+        },
+        "description": {
+          "type": "string",
+          "title": "Description"
+        }
+      }
     }
   }
 };
