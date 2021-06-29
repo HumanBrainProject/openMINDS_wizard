@@ -293,7 +293,7 @@ const onSubmit = ({formData}) => console.log("Data submitted: ",  formData);
 
 const MainForm = () => {
     return(
-        <Form schema={schema} onSubmit={onSubmit}/>
+        <Form schema={schema} omitExtraData={true} onSubmit={onSubmit}/>
     )
 }
 
