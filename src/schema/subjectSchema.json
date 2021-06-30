@@ -1,6 +1,10 @@
 {
   "type": "object",
   "properties": {
+    "lookupLabel": {
+      "type": "string",
+      "title": "Lookup label"
+    },
     "species": {
       "type": "string",
       "title": "Species",

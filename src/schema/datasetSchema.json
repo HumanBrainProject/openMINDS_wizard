@@ -26,7 +26,17 @@
         "type": "array",
         "title": "Authors",
         "items": {
-          "type": "string" 
+          "type": "object",
+          "properties": {
+            "familyName": {
+              "type": "string",
+              "title": "Family name"
+            },
+            "givenName": {
+              "type": "string",
+              "title": "Given name"
+            }
+          }           
         }
       },
       "custodian" : {
@@ -195,10 +205,6 @@
         "type": "object",
         "title": "Studied specimen",
         "properties": {
-          "lookupLabel": {
-            "type": "string",
-            "title": "Lookup label"
-          },
           "conditional": {
             "type": "object",
             "title": "",
@@ -258,7 +264,7 @@
                         "type": "number",
                         "title": "How many tissue samples did you study?"
                       },
-                      "individualSampleInfo": {
+                      "individualTissueSampleInfo": {
                         "type": "boolean",
                         "title": "Do you have individual tissue sample information?"
                       }

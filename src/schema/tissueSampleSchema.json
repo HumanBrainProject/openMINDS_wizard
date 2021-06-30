@@ -1,7 +1,10 @@
 {
-  "title": "Tissue sample",
-  "type": "array",
-  "items": {
+  "type": "object",
+  "properties": {
+    "lookupLabel": {
+      "type": "string",
+      "title": "Lookup label"
+    },
     "typesOfTheTissue": {
       "type": "string",
       "title": "Types of the tissue",
@@ -69,23 +72,31 @@
       "enum": ["wildtype"]
     },
     "ageRange": {
-      "age":{
+      "type": "object",
+      "title": "Age",
+      "properties": {
+        "age":{
           "type": "number",
           "title": "Age / Age range"
-      },
-      "unit":{
-        "type": "Unit",
-        "title": "string"
+        },
+        "unit":{
+          "type": "string",
+          "title": "Unit"
+        }
       }
     },
     "weightRange": {
-      "weight":{
+      "type": "object",
+      "title": "Weight",
+      "properties": {
+        "weight":{
           "type": "number",
           "title": "Weight"
-      },
-      "unit":{
-        "type": "Unit",
-        "title": "string"
+        },
+        "unit":{
+          "type": "string",
+          "title": "Unit"
+        }
       }
     },
     "origin": {
