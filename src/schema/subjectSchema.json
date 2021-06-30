@@ -1,0 +1,34 @@
+{
+  "title": "Subject form",
+  "type": "array",
+  "items": {
+    "species": {
+      "type": "string",
+      "title": "Species",
+      "enum": [
+        
+      ]    
+    },
+    "strains": {
+      "type": "string",
+      "title": "Strains",
+      "enum": [
+        
+      ]    
+    },
+    "biologicalSex": {
+      "type": "string",
+      "title": "Biological sex",
+      "enum": [
+        
+      ]    
+    },
+    "phenotype": {
+      "type": "string",
+      "title": "Phenotype",
+      "enum": [
+        
+      ]    
+    }     
+  }
+ }
