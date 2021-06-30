@@ -1,3 +1,108 @@
 {
-    
+  "title": "Tissue sample",
+  "type": "array",
+  "items": {
+    "typesOfTheTissue": {
+      "type": "string",
+      "title": "Types of the tissue",
+      "enum": [
+        "cell culture", 
+        "whole organ", 
+        "tissue slice", 
+        "biopsy sample", 
+        "brain hemisphere"
+      ]
+    },
+    "species": {
+      "type": "string",
+      "title": "Species of the tissue",
+      "enum": [
+        "Mustela putorius furo", 
+        "Monodelphis domestica", 
+        "Macaca fascicularis", 
+        "Berghia stephanieae", 
+        "Mustela putorius", 
+        "Chlorocebus aethiops sabaeus", 
+        "Macaca fuscata", 
+        "Rattus norvegicus", 
+        "Danio rerio", 
+        "Macaca mulatta", 
+        "Callithrix jacchus", 
+        "Homo sapiens", 
+        "Mus musculus", 
+        "Chlorocebus pygerythrus"
+      ]
+    },
+    "strain": {
+      "type": "string",
+      "title": "Strains of the tissue",
+      "enum": [
+        "Crl:WI", 
+        "C57BL/6J-Tg(Thy1-GCaMP6f)GP5.17Dkim/J", 
+        "B6.129-Nlgn3<sup>tm4Sud</sup>/J", 
+        "B6.Cg-Tg(Camk2a-tTA)1Mmay/DboJ", 
+        "C57BL/6J", 
+        "Crl:LIS", 
+        "C57BL/6", 
+        "Crl:WI(Han)", 
+        "LEW/Ztm", 
+        "SD", 
+        "SWR", 
+        "B6;129-Tg(Drd1-cre)120Mxu/Mmjax", 
+        "Crl:LE", 
+        "LEW/Crl", 
+        "129/Sv"
+      ]
+    },
+    "biologicalSex": {
+      "type": "string",
+      "title": "Biological sex",
+      "enum": [
+        "female", 
+        "male", 
+        "hermaphrodite"
+      ]
+    },
+    "phenotype": {
+      "type": "string",
+      "title": "Phenotype",
+      "enum": ["wildtype"]
+    },
+    "ageRange": {
+      "age":{
+          "type": "number",
+          "title": "Age / Age range"
+      },
+      "unit":{
+        "type": "Unit",
+        "title": "string"
+      }
+    },
+    "weightRange": {
+      "weight":{
+          "type": "number",
+          "title": "Weight"
+      },
+      "unit":{
+        "type": "Unit",
+        "title": "string"
+      }
+    },
+    "origin": {
+      "type": "string",
+      "title": "Origin",
+      "enum": [
+        "sensory neuron", 
+        "cortical interneuron", 
+        "striatal interneuron", 
+        "interneuron", 
+        "motor neuron", 
+        "pyramidal cell", 
+        "glial cell", 
+        "granule cell", 
+        "cerebellar interneuron", 
+        "spinal interneuron"
+      ]
+    }
+  }
 }

@@ -1,5 +1,5 @@
 {
-    "title": "Dataset form",
+    "title": "Dataset",
     "type": "object",
     "properties": {
       "name": {

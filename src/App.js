@@ -38,11 +38,11 @@ const App = () => {
     setStudyTopicSize(size);
     groupStudyTopic(grouped);
     
-
     if (type === STUDY_TOPIC_SUBJECT_VALUE) {
-
+      
       if (grouped) {
-        const newSchema = JSON.parse(JSON.stringify(subjectGroupSchema));
+        let newSchema = JSON.parse(JSON.stringify(subjectGroupSchema));
+        newSchema.properties.minItemsList.items = JSON.parse(JSON.stringify(subjectSchema))
         //TODO set the value of "number of subjects" field in newSchema
         setSchema(newSchema);
       } else {
@@ -59,7 +59,7 @@ const App = () => {
         setSchema(tissueSampleSchema);
       }
 
-    } else {
+    } else {  
       //TODO: generate the final jsonld;
       const res = {};
       setResult(res);
@@ -73,10 +73,17 @@ const App = () => {
   };
 
   const submitSubjectTemplate = formData => {
-    //TODO: genereate the new schemas
-    const subjectsSchema = {};
-    // for studyTopicSize copy sujectSchema
-    setSchema(subjectsSchema);
+    let newSchema = JSON.parse(JSON.stringify(subjectGroupSchema));
+    const item = JSON.parse(JSON.stringify(subjectSchema));
+    debugger;
+    Object.entries(formData).forEach(([key, value]) => {
+      if (item.properties[key]) {
+        item.properties[key].default = value;
+      }
+    });
+    newSchema.properties.minItemsList.items = item;
+    newSchema.properties.minItemsList.minItems = studyTopicSize;
+    setSchema(newSchema);
     toggleStudyTemplate(true);
   };
 
@@ -107,6 +114,7 @@ const App = () => {
   };
  
   const onSubmit = ({formData}) => {
+    console.log(formData);
     if (!dataset) {
       submitDataset(formData);
     } else {  

@@ -1,34 +1,62 @@
 {
-  "title": "Subject form",
-  "type": "array",
-  "items": {
+  "type": "object",
+  "properties": {
     "species": {
       "type": "string",
       "title": "Species",
       "enum": [
-        
-      ]    
+        "Mustela putorius furo",
+        "Monodelphis domestica",
+        "Macaca fascicularis",
+        "Berghia stephanieae",
+        "Mustela putorius",
+        "Chlorocebus aethiops sabaeus",
+        "Macaca fuscata",
+        "Rattus norvegicus",
+        "Danio rerio",
+        "Macaca mulatta",
+        "Callithrix jacchus",
+        "Homo sapiens",
+        "Mus musculus",
+        "Chlorocebus pygerythrus"
+      ]
     },
     "strains": {
       "type": "string",
       "title": "Strains",
       "enum": [
-        
-      ]    
+        "Crl:WI",
+        "C57BL/6J-Tg(Thy1-GCaMP6f)GP5.17Dkim/J",
+        "B6.129-Nlgn3<sup>tm4Sud</sup>/J",
+        "B6.Cg-Tg(Camk2a-tTA)1Mmay/DboJ",
+        "C57BL/6J",
+        "Crl:LIS",
+        "C57BL/6",
+        "Crl:WI(Han)",
+        "LEW/Ztm",
+        "SD",
+        "SWR",
+        "B6;129-Tg(Drd1-cre)120Mxu/Mmjax",
+        "Crl:LE",
+        "LEW/Crl",
+        "129/Sv"
+      ]
     },
     "biologicalSex": {
       "type": "string",
       "title": "Biological sex",
       "enum": [
-        
-      ]    
+        "female",
+        "male",
+        "hermaphrodite"
+      ]
     },
     "phenotype": {
       "type": "string",
       "title": "Phenotype",
       "enum": [
-        
-      ]    
-    }     
+        "wildtype"
+      ]
+    }
   }
- }
+}
