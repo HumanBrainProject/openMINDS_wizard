@@ -76,7 +76,6 @@ const App = () => {
         setSchema(tissueSampleSchema);
       }
     } else {  
-      console.log(dataset);
       const res = generateDocumentsFromDataset(dataset);
       setResult(res);
     }
