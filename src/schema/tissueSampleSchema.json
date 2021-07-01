@@ -95,8 +95,8 @@
       "properties": {
         "state": {
           "type": "array",
-          "minItems": 1,
           "title": "States",
+          "description": "If the study of the subjects was done at different states, please fill in the information",
           "items": {
             "type": "object",
             "properties": {
