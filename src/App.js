@@ -188,10 +188,8 @@ const App = () => {
           :
           <div className="result">
             <ReactJson collapsed={2} name={false} src={result} />
-            <button className="btn btn-info" onClick={downloadZip}>Download</button>
-            <div>
-              <button type="button" className="btn btn-info" onClick={onReset}>Create another Dataset</button>
-            </div>
+            <button className="btn btn-success download-btn" onClick={downloadZip}>Download</button>
+            <button type="button" className="btn btn-info" onClick={onReset}>Create another Dataset</button>
           </div>
         }
       </div>

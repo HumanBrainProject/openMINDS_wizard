@@ -42,6 +42,10 @@
   padding-bottom: 10px;
 }
 
+.download-btn {
+  margin-right: 10px;
+}
+
 .form .form-group.field .row.array-item-list .array-item {
   border: 1px solid #e5e5e5;
   display: flex;
