@@ -1,5 +1,5 @@
 {
-    "title": "Subject",
+    "title": "Subject Groups",
     "type": "object",
     "properties": {
       "minItemsList": {

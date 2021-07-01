@@ -55,13 +55,13 @@ const App = () => {
         const items = JSON.parse(JSON.stringify(subjectSchema));
         items.properties.quantity = {
           type: "number",
-          title: "How many subjects did you study?",
+          title: "Number of subjects",
           default: size
         }
         newSchema.properties.minItemsList.items = items;
         setSchema(newSchema);
       } else {
-        setSchema(subjectSchema);
+        setSchema({...subjectSchema, title: "Subject template"});
       }
     } else if (type === STUDY_TOPIC_TISSUE_SAMPLE_VALUE) {
       if (grouped) {
@@ -69,13 +69,13 @@ const App = () => {
         const items = JSON.parse(JSON.stringify(tissueSampleSchema))
         items.properties.quantity = {
           type: "number",
-          title: "How many tissue samples did you study?",
+          title: "Number of tissue samples",
           default: size
         }
         newSchema.properties.minItemsList.items = items;
         setSchema(newSchema);
       } else {
-        setSchema(tissueSampleSchema);
+        setSchema({...tissueSampleSchema, title: "Tissue sample template"});
       }
     } else {  
       const res = generateDocumentsFromDataset(dataset);
@@ -155,8 +155,28 @@ const App = () => {
     const zip = new JSZip();
     zip.file("result.json", JSON.stringify(result));
     zip.generateAsync({type:"blob"}).then(content => saveAs(content, "result.zip"));
-  }
+  };
   
+  const onReset = () => {
+    setDataset(null);
+    groupStudyTopic(false);
+    setStudyTopicType(null);
+    setStudyTopicSize(0);
+    toggleStudyTemplate(false);
+    setSchema(datasetSchema);
+    setResult(null);
+  };
+
+  const goBack = () => {
+    //TODO
+  };
+
+  const submitLabel = (isStudyTopicGrouped || hasStudyTemplate)?"Generate Open Minds Documents":"Next";
+
+  const backLabel = dataset?"Previous":undefined;
+
+  const onBack = dataset?goBack:undefined;
+
   return (
     <div className="App">
       <header className="App-header">
@@ -164,11 +184,14 @@ const App = () => {
       </header>
       <div className="form">
         {!result?
-          <Form onSubmit={onSubmit} schema={schema} />
+          <Form  schema={schema} onSubmit={onSubmit} submitLabel={submitLabel} onBack={onBack} backLabel={backLabel} />
           :
           <div className="result">
-              <ReactJson collapsed={2} name={false} src={result} />
-              <button className="btn btn-info" onClick={downloadZip}>Download</button>
+            <ReactJson collapsed={2} name={false} src={result} />
+            <button className="btn btn-info" onClick={downloadZip}>Download</button>
+            <div>
+              <button type="button" className="btn btn-info" onClick={onReset}>Create another Dataset</button>
+            </div>
           </div>
         }
       </div>

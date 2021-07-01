@@ -41,3 +41,27 @@
 .result .react-json-view {
   padding-bottom: 10px;
 }
+
+.form .form-group.field .row.array-item-list .array-item {
+  border: 1px solid #e5e5e5;
+  display: flex;
+  position: relative;
+  padding: 20px 10px 0px 10px;
+  border-radius: 6px;
+  margin-left: 15px;
+  margin-bottom: 20px;
+  width: calc(100% - 30px);
+}
+
+.form .footer button {
+  min-width: 140px;
+}
+
+.form .footer .back-panel {
+  padding-left: 0;
+}
+
+.form .footer .submit-panel {
+  text-align: right;
+  padding-right: 0;
+}
