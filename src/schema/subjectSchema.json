@@ -66,75 +66,41 @@
       "type": "object",
       "title": "",
       "properties": {
-        "conditional": {
-          "type": "object",
-          "title": "",
-          "properties": {
-            "condition": {
-              "type": "boolean",
-              "title": "Did you study the subjects at different states"
-            }
-          },
-          "dependencies": {
-            "condition": {
-              "oneOf": [
-                {
-                  "properties": {
-                    "condition": {
-                      "enum": [
-                        false                      
-                      ]
-                    }
-                  }
-                },
-                {
-                  "properties": {
-                    "condition": {
-                      "enum": [
-                        true
-                      ]
-                    },
-                    "state": {
-                      "type": "array",
-                      "minItems": 1,
-                      "title": "States",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "age": {
-                            "type": "object",
-                            "title": "Age",
-                            "properties": {
-                              "value": {
-                                "type": "string",
-                                "title": "Value / Value range"
-                              },
-                              "unit": {
-                                "type": "string",
-                                "title": "Unit"
-                              }
-                            }
-                          },
-                          "weight": {
-                            "type": "object",
-                            "title": "Weight",
-                            "properties": {
-                              "value": {
-                                "type": "string",
-                                "title": "Value / Value range"
-                              },
-                              "unit": {
-                                "type": "string",
-                                "title": "Unit"
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
+        "state": {
+          "type": "array",
+          "minItems": 1,
+          "title": "States",
+          "items": {
+            "type": "object",
+            "properties": {
+              "age": {
+                "type": "object",
+                "title": "Age",
+                "properties": {
+                  "value": {
+                    "type": "string",
+                    "title": "Value / Value range"
+                  },
+                  "unit": {
+                    "type": "string",
+                    "title": "Unit"
                   }
                 }
-              ]
+              },
+              "weight": {
+                "type": "object",
+                "title": "Weight",
+                "properties": {
+                  "value": {
+                    "type": "string",
+                    "title": "Value / Value range"
+                  },
+                  "unit": {
+                    "type": "string",
+                    "title": "Unit"
+                  }
+                }
+              }
             }
           }
         }

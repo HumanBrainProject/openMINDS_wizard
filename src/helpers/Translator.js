@@ -85,6 +85,14 @@ const createBiologicalSexDocument = (documents, biologicalSex) => {
     return id;
 };
 
+const createProtocol = (documents, protocol) => {
+    const id = createDocument(documents, `${OPENMINDS_VOCAB}Protocol`);
+    const target = documents[id];
+    setProperty(target, "name", protocol.name);
+    setProperty(target, "description", protocol.description);
+    return id;
+};
+
 const createPhenotypeDocument = (documents, phenotype) => {
     const id = createDocument(documents, `${OPENMINDS_VOCAB}Phenotype`);
     const target = documents[id];
@@ -245,10 +253,17 @@ const createOtherContributionDocument = (documents, otherContribution) => {
   return id;
 };
 
-const createDatasetDocument = (documents, source) => {
-    // inputData: "tetete"
-    // protocol: {}
 
+//TODO: Check which is the most generic type 
+const createInputDataDocument = (documents, inputData) => {
+    const id = createDocument(documents, `${OPENMINDS_VOCAB}InputData`);
+    const target = documents[id];
+    setProperty(target, "identifier", inputData);
+    return id;
+  };
+
+
+const createDatasetDocument = (documents, source) => {
     const datasetId = createDocument(documents, `${OPENMINDS_VOCAB}DatasetVersion`);
     const dataset = documents[datasetId];
 
@@ -274,6 +289,8 @@ const createDatasetDocument = (documents, source) => {
     setPropertyWithLinks(documents, dataset, "relatedPublication", source.relatedPublication, createRelatedPublicationDocument);
     setPropertyWithLinks(documents, dataset, "type", source.type, createTypeDocument);
     setPropertyWithLinks(documents, dataset, "otherContribution", source.otherContribution, createOtherContributionDocument);
+    setPropertyWithLinks(documents, dataset, "inputData", source.inputData, createInputDataDocument);
+    setPropertyWithLinks(documents, dataset, "protocol", source.protocol, createProtocol);
 
     return datasetId;
 };
