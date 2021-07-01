@@ -1,5 +1,7 @@
-import React, { useState } from "react";
-import ReactJson from "react-json-view";
+import React, { useState } from 'react';
+import ReactJson from 'react-json-view';
+import JSZip from 'jszip';
+import { saveAs } from 'file-saver';
 import Form from './components/Form';
 import './App.css';
 import * as datasetSchemaModule from './schema/datasetSchema.json';
@@ -81,8 +83,7 @@ const App = () => {
     }
   };
 
-  const submitSubjectGroups = formData => {
-    const subjectsGroups = formData;
+  const submitSubjectGroups = subjectsGroups => {
     const res = generateDocumentsFromDatasetAndSubjectGroups(dataset, subjectsGroups);
     setResult(res);
   };
@@ -111,8 +112,6 @@ const App = () => {
     setSchema(newSchema);
     toggleStudyTemplate(true);
   };
-
- 
 
   const submitTissueSampleTemplate = formData => {
     let newSchema = JSON.parse(JSON.stringify(tissueSampleGroupSchema));
@@ -151,6 +150,12 @@ const App = () => {
       }
     }
   }
+
+  const downloadZip = () => {
+    const zip = new JSZip();
+    zip.file("result.json", JSON.stringify(result));
+    zip.generateAsync({type:"blob"}).then(content => saveAs(content, "result.zip"));
+  }
   
   return (
     <div className="App">
@@ -161,8 +166,9 @@ const App = () => {
         {!result?
           <Form onSubmit={onSubmit} schema={schema} />
           :
-          <div>
-              <ReactJson collapsed={1} name={false} src={result} />
+          <div className="result">
+              <ReactJson collapsed={2} name={false} src={result} />
+              <button className="btn btn-info" onClick={downloadZip}>Download</button>
           </div>
         }
       </div>

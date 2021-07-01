@@ -37,3 +37,7 @@
   padding: 50px 20% 50px 20%;
   background-color: #f5f7fa;
 }
+
+.result .react-json-view {
+  padding-bottom: 10px;
+}
