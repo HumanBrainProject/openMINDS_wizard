@@ -71,13 +71,13 @@
       "title": "Phenotype",
       "enum": ["wildtype"]
     },
-    "ageRange": {
+    "age": {
       "type": "object",
       "title": "Age",
       "properties": {
-        "age":{
+        "value":{
           "type": "number",
-          "title": "Age / Age range"
+          "title": "Value / Value range"
         },
         "unit":{
           "type": "string",
@@ -85,13 +85,13 @@
         }
       }
     },
-    "weightRange": {
+    "weight": {
       "type": "object",
       "title": "Weight",
       "properties": {
-        "weight":{
+        "value":{
           "type": "number",
-          "title": "Weight"
+          "title": "Value / Value range"
         },
         "unit":{
           "type": "string",

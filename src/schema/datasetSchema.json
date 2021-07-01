@@ -41,7 +41,7 @@
       },
       "custodian" : {
         "type": "array",
-        "title": "Custodian",
+        "title": "Custodians",
         "items": {
           "type": "string" 
         }
@@ -185,7 +185,7 @@
       },
       "relatedPublication": {
         "type": "array",
-        "title": "Related publication",
+        "title": "Related publications",
         "items": {
           "type": "string" 
         }
