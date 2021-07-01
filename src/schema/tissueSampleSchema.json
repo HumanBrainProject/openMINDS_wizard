@@ -9,10 +9,10 @@
       "type": "string",
       "title": "Types of the tissue",
       "enum": [
-        "cell culture", 
-        "whole organ", 
-        "tissue slice", 
-        "biopsy sample", 
+        "cell culture",
+        "whole organ",
+        "tissue slice",
+        "biopsy sample",
         "brain hemisphere"
       ]
     },
@@ -20,19 +20,19 @@
       "type": "string",
       "title": "Species of the tissue",
       "enum": [
-        "Mustela putorius furo", 
-        "Monodelphis domestica", 
-        "Macaca fascicularis", 
-        "Berghia stephanieae", 
-        "Mustela putorius", 
-        "Chlorocebus aethiops sabaeus", 
-        "Macaca fuscata", 
-        "Rattus norvegicus", 
-        "Danio rerio", 
-        "Macaca mulatta", 
-        "Callithrix jacchus", 
-        "Homo sapiens", 
-        "Mus musculus", 
+        "Mustela putorius furo",
+        "Monodelphis domestica",
+        "Macaca fascicularis",
+        "Berghia stephanieae",
+        "Mustela putorius",
+        "Chlorocebus aethiops sabaeus",
+        "Macaca fuscata",
+        "Rattus norvegicus",
+        "Danio rerio",
+        "Macaca mulatta",
+        "Callithrix jacchus",
+        "Homo sapiens",
+        "Mus musculus",
         "Chlorocebus pygerythrus"
       ]
     },
@@ -40,20 +40,20 @@
       "type": "string",
       "title": "Strains of the tissue",
       "enum": [
-        "Crl:WI", 
-        "C57BL/6J-Tg(Thy1-GCaMP6f)GP5.17Dkim/J", 
-        "B6.129-Nlgn3<sup>tm4Sud</sup>/J", 
-        "B6.Cg-Tg(Camk2a-tTA)1Mmay/DboJ", 
-        "C57BL/6J", 
-        "Crl:LIS", 
-        "C57BL/6", 
-        "Crl:WI(Han)", 
-        "LEW/Ztm", 
-        "SD", 
-        "SWR", 
-        "B6;129-Tg(Drd1-cre)120Mxu/Mmjax", 
-        "Crl:LE", 
-        "LEW/Crl", 
+        "Crl:WI",
+        "C57BL/6J-Tg(Thy1-GCaMP6f)GP5.17Dkim/J",
+        "B6.129-Nlgn3<sup>tm4Sud</sup>/J",
+        "B6.Cg-Tg(Camk2a-tTA)1Mmay/DboJ",
+        "C57BL/6J",
+        "Crl:LIS",
+        "C57BL/6",
+        "Crl:WI(Han)",
+        "LEW/Ztm",
+        "SD",
+        "SWR",
+        "B6;129-Tg(Drd1-cre)120Mxu/Mmjax",
+        "Crl:LE",
+        "LEW/Crl",
         "129/Sv"
       ]
     },
@@ -61,59 +61,102 @@
       "type": "string",
       "title": "Biological sex",
       "enum": [
-        "female", 
-        "male", 
+        "female",
+        "male",
         "hermaphrodite"
       ]
     },
     "phenotype": {
       "type": "string",
       "title": "Phenotype",
-      "enum": ["wildtype"]
-    },
-    "age": {
-      "type": "object",
-      "title": "Age",
-      "properties": {
-        "value":{
-          "type": "number",
-          "title": "Value / Value range"
-        },
-        "unit":{
-          "type": "string",
-          "title": "Unit"
-        }
-      }
-    },
-    "weight": {
-      "type": "object",
-      "title": "Weight",
-      "properties": {
-        "value":{
-          "type": "number",
-          "title": "Value / Value range"
-        },
-        "unit":{
-          "type": "string",
-          "title": "Unit"
-        }
-      }
+      "enum": [
+        "wildtype"
+      ]
     },
     "origin": {
       "type": "string",
       "title": "Origin",
       "enum": [
-        "sensory neuron", 
-        "cortical interneuron", 
-        "striatal interneuron", 
-        "interneuron", 
-        "motor neuron", 
-        "pyramidal cell", 
-        "glial cell", 
-        "granule cell", 
-        "cerebellar interneuron", 
+        "sensory neuron",
+        "cortical interneuron",
+        "striatal interneuron",
+        "interneuron",
+        "motor neuron",
+        "pyramidal cell",
+        "glial cell",
+        "granule cell",
+        "cerebellar interneuron",
         "spinal interneuron"
       ]
+    },
+    "studyState": {
+      "type": "object",
+      "title": "",
+      "properties": {
+        "conditional": {
+          "type": "object",
+          "title": "",
+          "properties": {
+            "condition": {
+              "type": "boolean",
+              "title": "Did you study the tissue samples at different states"
+            }
+          },
+          "dependencies": {
+            "condition": {
+              "oneOf": [
+                {
+                  "properties": {
+                    "condition": {
+                      "enum": [
+                        true
+                      ]
+                    },
+                    "state": {
+                      "type": "array",
+                      "minItems": 1,
+                      "title": "States",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "age": {
+                            "type": "object",
+                            "title": "Age",
+                            "properties": {
+                              "value": {
+                                "type": "string",
+                                "title": "Value / Value range"
+                              },
+                              "unit": {
+                                "type": "string",
+                                "title": "Unit"
+                              }
+                            }
+                          },
+                          "weight": {
+                            "type": "object",
+                            "title": "Weight",
+                            "properties": {
+                              "value": {
+                                "type": "string",
+                                "title": "Value / Value range"
+                              },
+                              "unit": {
+                                "type": "string",
+                                "title": "Unit"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
     }
   }
 }

@@ -1,13 +1,6 @@
 {
-    "title": "Subject Groups",
-    "type": "object",
-    "properties": {
-      "minItemsList": {
-        "title": "",
-        "type": "array",
-        "minItems": 1,
-        "items": {
-        }
-      }
-    }
-  }
+  "title": "Subject groups",
+  "type": "array",
+  "minItems": 1,
+  "items": {}
+}

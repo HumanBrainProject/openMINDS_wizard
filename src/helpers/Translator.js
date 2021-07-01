@@ -4,7 +4,7 @@ const OPENMINDS_VOCAB = "https://openminds.ebrains.eu/vocab/";
 const EBRAINS_VOCAB = "https://kg.ebrains.eu/api/instances/";
 
 const createDocument = (documents, type) => {
-    const id = `${EBRAINS_VOCAB}/${_.uuid()}`;
+    const id = `${EBRAINS_VOCAB}${_.uuid()}`;
     const doc = {
         "@id": id,
         "@type": [type]
@@ -15,7 +15,7 @@ const createDocument = (documents, type) => {
 
 const setProperty = (object, name, value) => {
     if (value !== null && value !== undefined && value !== "") {
-        object[`${OPENMINDS_VOCAB}/${name}`] = value;
+        object[`${OPENMINDS_VOCAB}${name}`] = value;
     }
 };
 
@@ -137,12 +137,8 @@ const createSubjectDocument = (documents, source) => {
     setPropertyWithLinks(documents, target, "strain", source.strains, createStrainDocument);
     setPropertyWithLinks(documents, target, "biologicalSex", source.biologicalSex, createBiologicalSexDocument);
     setPropertyWithLinks(documents, target, "origin", source.origin, createCellTypeDocument);
-    const studiedState = {
-        age: source.age,
-        weight: source.weight
-    };
-    setPropertyWithLinks(documents, target, "studiedState", studiedState, createStudiedStateDocument);
-    return target;
+    setPropertyWithLinks(documents, target, "studiedState", source.studyState?.conditional?.state, createStudiedStateDocument);
+    return id;
 };
 
 const createSubjectGroupDocument = (documents, source) => {
@@ -154,12 +150,8 @@ const createSubjectGroupDocument = (documents, source) => {
     setPropertyWithLinks(documents, target, "strain", source.strains, createStrainDocument);
     setPropertyWithLinks(documents, target, "biologicalSex", source.biologicalSex, createBiologicalSexDocument);
     setPropertyWithLinks(documents, target, "phenotype", source.phenotype, createPhenotypeDocument);
-    const studiedState = {
-        age: source.age,
-        weight: source.weight
-    };
-    setPropertyWithLinks(documents, target, "studiedState", studiedState, createStudiedStateDocument);
-    return target;
+    setPropertyWithLinks(documents, target, "studiedState", source.studyState?.conditional?.state, createStudiedStateDocument);
+    return id;
 };
 
 const createTissueSampleDocument = (documents, source) => {
@@ -171,12 +163,8 @@ const createTissueSampleDocument = (documents, source) => {
     setPropertyWithLinks(documents, target, "strain", source.strains, createStrainDocument);
     setPropertyWithLinks(documents, target, "biologicalSex", source.biologicalSex, createBiologicalSexDocument);
     setPropertyWithLinks(documents, target, "origin", source.origin, createCellTypeDocument);
-    const studiedState = {
-        age: source.age,
-        weight: source.weight
-    };
-    setPropertyWithLinks(documents, target, "studiedState", studiedState, createStudiedStateDocument);
-    return target;
+    setPropertyWithLinks(documents, target, "studiedState", source.studyState?.conditional?.state, createStudiedStateDocument);
+    return id;
 };
 
 const createTissueSampleGroupDocument = (documents, source) => {
@@ -189,12 +177,8 @@ const createTissueSampleGroupDocument = (documents, source) => {
     setPropertyWithLinks(documents, target, "strain", source.strains, createStrainDocument);
     setPropertyWithLinks(documents, target, "biologicalSex", source.biologicalSex, createBiologicalSexDocument);
     setPropertyWithLinks(documents, target, "origin", source.origin, createCellTypeDocument);
-    const studiedState = {
-        age: source.age,
-        weight: source.weight
-    };
-    setPropertyWithLinks(documents, target, "studiedState", studiedState, createStudiedStateDocument);
-    return target;
+    setPropertyWithLinks(documents, target, "studiedState", source.studyState?.conditional?.state, createStudiedStateDocument);
+    return id;
 };
 
 const createDigitalIdentifierDocument = (documents, doi) => {

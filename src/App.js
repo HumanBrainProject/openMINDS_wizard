@@ -58,7 +58,7 @@ const App = () => {
           title: "Number of subjects",
           default: size
         }
-        newSchema.properties.minItemsList.items = items;
+        newSchema.items = items;
         setSchema(newSchema);
       } else {
         setSchema({...subjectSchema, title: "Subject template"});
@@ -72,7 +72,7 @@ const App = () => {
           title: "Number of tissue samples",
           default: size
         }
-        newSchema.properties.minItemsList.items = items;
+        newSchema.items = items;
         setSchema(newSchema);
       } else {
         setSchema({...tissueSampleSchema, title: "Tissue sample template"});
@@ -83,8 +83,8 @@ const App = () => {
     }
   };
 
-  const submitSubjectGroups = subjectsGroups => {
-    const res = generateDocumentsFromDatasetAndSubjectGroups(dataset, subjectsGroups);
+  const submitSubjectGroups = subjectGroups => {
+    const res = generateDocumentsFromDatasetAndSubjectGroups(dataset, subjectGroups);
     setResult(res);
   };
 
@@ -107,8 +107,8 @@ const App = () => {
     let newSchema = JSON.parse(JSON.stringify(subjectGroupSchema));
     const item = JSON.parse(JSON.stringify(subjectSchema));
     item.default = formData;
-    newSchema.properties.minItemsList.items = item;
-    newSchema.properties.minItemsList.minItems = studyTopicSize;
+    newSchema.items = item;
+    newSchema.minItems = studyTopicSize;
     setSchema(newSchema);
     toggleStudyTemplate(true);
   };
@@ -117,8 +117,8 @@ const App = () => {
     let newSchema = JSON.parse(JSON.stringify(tissueSampleGroupSchema));
     const item = JSON.parse(JSON.stringify(tissueSampleSchema));
     item.default = formData;
-    newSchema.properties.minItemsList.items = item;
-    newSchema.properties.minItemsList.minItems = studyTopicSize;
+    newSchema.items = item;
+    newSchema.minItems = studyTopicSize;
     setSchema(newSchema);
     toggleStudyTemplate(true);
   };

@@ -246,10 +246,6 @@
                       "individualSubjectInfo": {
                         "type": "boolean",
                         "title": "Do you have individual subject information?"
-                      },
-                      "subjectsAtDifferentStates": {
-                        "type": "boolean",
-                        "title": "Did you study the subjects at different states?"
                       }
                     }
                   },
