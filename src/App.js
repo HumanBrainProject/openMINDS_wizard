@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import ReactJson from 'react-json-view';
-import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 import Form from './components/Form';
 import './App.css';
@@ -151,10 +150,9 @@ const App = () => {
     }
   }
 
-  const downloadZip = () => {
-    const zip = new JSZip();
-    zip.file("result.json", JSON.stringify(result));
-    zip.generateAsync({type:"blob"}).then(content => saveAs(content, "result.zip"));
+  const downloadJson = () => {
+    const blob = new Blob([JSON.stringify(result)], {type: "data:text/json;charset=utf-8"});
+    saveAs(blob, "result.json")
   };
   
   const onReset = () => {
@@ -187,8 +185,8 @@ const App = () => {
           <Form  schema={schema} onSubmit={onSubmit} submitLabel={submitLabel} onBack={onBack} backLabel={backLabel} />
           :
           <div className="result">
-            <ReactJson collapsed={2} name={false} src={result} />
-            <button className="btn btn-success download-btn" onClick={downloadZip}>Download</button>
+            <ReactJson collapsed={1} name={false} src={result} />
+            <button className="btn btn-success download-btn" onClick={downloadJson}>Download</button>
             <button type="button" className="btn btn-info" onClick={onReset}>Create another Dataset</button>
           </div>
         }

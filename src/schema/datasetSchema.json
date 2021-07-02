@@ -43,7 +43,17 @@
         "type": "array",
         "title": "Custodians",
         "items": {
-          "type": "string" 
+          "type": "object",
+          "properties": {
+            "familyName": {
+              "type": "string",
+              "title": "Family name"
+            },
+            "givenName": {
+              "type": "string",
+              "title": "Given name"
+            }
+          }           
         }
       },
       "otherContributions" : {
@@ -118,9 +128,19 @@
           "type": "string" 
         }
       },
-      "copyrightHolderAndYear" : {
-        "type": "string",
-        "title": "Copyright holder & year"
+      "copyright" : {
+        "type": "object",
+        "title": "Copyright",
+        "properties": {
+          "holder": {
+            "type": "string",
+            "title": "Holder"
+          },
+          "givenName": {
+            "type": "number",
+            "title": "Year"
+          }
+        }           
       },
       "releasedDate":{
         "type": "string",
