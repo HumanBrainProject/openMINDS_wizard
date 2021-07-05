@@ -259,11 +259,11 @@
                           "Subject"
                         ]
                       },
-                      "numberOfSubjects": {
+                      "numberOfSpecimen": {
                         "type": "number",
                         "title": "How many subjects did you study?"
                       },
-                      "individualSubjectInfo": {
+                      "individualSpecimen": {
                         "type": "boolean",
                         "title": "Do you have individual subject information?"
                       }
@@ -276,11 +276,11 @@
                           "Tissue sample"
                         ]
                       },
-                      "numberOfTissues": {
+                      "numberOfSpecimen": {
                         "type": "number",
                         "title": "How many tissue samples did you study?"
                       },
-                      "individualTissueSampleInfo": {
+                      "individualSpecimen": {
                         "type": "boolean",
                         "title": "Do you have individual tissue sample information?"
                       }
