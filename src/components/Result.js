@@ -2,7 +2,7 @@ import React from 'react';
 import ReactJson from 'react-json-view';
 import { saveAs } from 'file-saver';
 
-const Result = ({ result, onBack, onReset}) => {
+const Result = React.memo(({ result, onBack, onReset}) => {
 
   const downloadJson = () => {
     const blob = new Blob([JSON.stringify(result)], {type: "data:text/json;charset=utf-8"});
@@ -23,6 +23,6 @@ const Result = ({ result, onBack, onReset}) => {
       </div>
     </div>
   );
-};
+});
 
 export default Result;

@@ -221,90 +221,62 @@
         "type": "string",
         "title": "Input data"
       },
-      "studiedSpecimen": {
-        "type": "object",
-        "title": "Studied specimen",
-        "properties": {
-          "conditional": {
-            "type": "object",
-            "title": "",
+      "studyTopic": {
+        "type": "string",
+        "title": "What have you been studying?",
+        "enum": [
+          "Subject",
+          "Tissue sample"
+        ]
+      }
+    },
+    "dependencies": {
+      "studyTopic": {
+        "oneOf": [
+          {
             "properties": {
               "studyTopic": {
-                "type": "string",
-                "title": "What have you been studying?",
                 "enum": [
-                  "",
-                  "Subject",
-                  "Tissue sample"
-                ],
-                "default": ""
-              }
-            },
-            "dependencies": {
-              "studyTopic": {
-                "oneOf": [
-                  {
-                    "properties": {
-                      "studyTopic": {
-                        "enum": [
-                          ""
-                        ]
-                      }
-                    }
-                  },
-                  {
-                    "properties": {
-                      "studyTopic": {
-                        "enum": [
-                          "Subject"
-                        ]
-                      },
-                      "numberOfSpecimen": {
-                        "type": "number",
-                        "title": "How many subjects did you study?"
-                      },
-                      "individualSpecimen": {
-                        "type": "boolean",
-                        "title": "Do you have individual subject information?"
-                      }
-                    }
-                  },
-                  {
-                    "properties": {
-                      "studyTopic": {
-                        "enum": [
-                          "Tissue sample"
-                        ]
-                      },
-                      "numberOfSpecimen": {
-                        "type": "number",
-                        "title": "How many tissue samples did you study?"
-                      },
-                      "individualSpecimen": {
-                        "type": "boolean",
-                        "title": "Do you have individual tissue sample information?"
-                      }
-                    }
-                  }
+                  null
                 ]
               }
             }
-          }
-        }
-      },
-      "protocol": {
-        "type": "object",
-        "title": "Protocol",
-        "properties": {
-          "name": {
-            "type": "string",
-            "title": "Name"
           },
-          "description": {
-            "type": "string",
-            "title": "Description"
+          {
+            "properties": {
+              "studyTopic": {
+                "enum": [
+                  "Subject"
+                ]
+              },
+              "numberOfSubjects": {
+                "type": "number",
+                "title": "How many subjects did you study?"
+              },
+              "individualSubjects": {
+                "type": "boolean",
+                "title": "Do you have individual subject information?"
+              }
+            }
+          },
+          {
+            "properties": {
+              "studyTopic": {
+                "enum": [
+                  "Tissue sample"
+                ]
+              },
+              "numberOfTissueSamples": {
+                "type": "number",
+                "title": "How many tissue samples did you study?"
+              },
+              "individualTissueSamples": {
+                "type": "boolean",
+                "title": "Do you have individual tissue sample information?"
+              }
+            }
           }
-        }
+        ]
       }
     }
   }

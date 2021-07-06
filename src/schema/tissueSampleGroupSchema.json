@@ -1,7 +1,0 @@
-{
-  "title": "Tissue sample groups",
-  "type": "array",
-  "minItems": 1,
-  "items": {
-  }
-}

@@ -20,7 +20,7 @@ const setProperty = (object, name, value) => {
 };
 
 const setPropertyWithLinks = (documents, object, name, source, documentGenerator) => {
-    if (source === null || source === undefined) {
+    if (source === null || source === undefined || typeof object !== "object") {
         return;
     }
     const sourceList = Array.isArray(source)?source:[source];
