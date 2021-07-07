@@ -276,11 +276,17 @@ const createDatasetDocument = (documents, source) => {
     setProperty(dataset, "versionIdentifier", source.versionNumber);
     setProperty(dataset, "supportChannel", source.supportChannel);
     
-    setPropertyWithLinks(documents, dataset, "author", source.authors, createPersonDocument);
+    if(source.doi) {
+      if(source.doi.doi === "No") {
+        setPropertyWithLinks(documents, dataset, "author", source.doi.authors, createPersonDocument);
+      }
+      if(source.doi.doi === "Yes") {
+        setPropertyWithLinks(documents, dataset, "digitalIdentifier", source.doi.value, createDigitalIdentifierDocument);
+      }
+    }
     setPropertyWithLinks(documents, dataset, "custodian", source.custodian, createPersonDocument);
     setPropertyWithLinks(documents, dataset, "copyright", source.copyrightHolderAndYear, createCopyrightDocument);
     setPropertyWithLinks(documents, dataset, "ethicsAssessment", source.ethicsAssessment, createEthicsAssessmentDocument);
-    setPropertyWithLinks(documents, dataset, "digitalIdentifier", source.doi, createDigitalIdentifierDocument);
     setPropertyWithLinks(documents, dataset, "modality", source.experimentalApproach, createExperimentalApproachDocument);
     setPropertyWithLinks(documents, dataset, "fullDocumentation", source.fullDocumentation, createFullDocumentationDocument);
     setPropertyWithLinks(documents, dataset, "funding", source.funding, createFundingDocument);
