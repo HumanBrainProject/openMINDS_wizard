@@ -29,7 +29,8 @@ import {
   getSubjectGroupsSchema,
   getSubjectsSchema,
   getTissueSamplesSchema,
-  getTissueSampleGroupsSchema
+  getTissueSampleGroupsSchema,
+  generateItemsFromTemplate
 } from '../helpers/Wizard';
 
 const datasetSchema = datasetSchemaModule.default;

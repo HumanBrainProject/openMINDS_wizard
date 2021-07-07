@@ -74,4 +74,4 @@ export const getTissueSampleGroupsSchema = dataset => {
   };
 };
 
-const generateItemsFromTemplate = (template, size) => [...Array(size).keys()].map(() => JSON.parse(JSON.stringify(template)));
+export const generateItemsFromTemplate = (template, size) => [...Array(size).keys()].map(() => JSON.parse(JSON.stringify(template)));
