@@ -122,25 +122,25 @@ const Wizard = () => {
   const handleSubjectTemplateSubmit = useCallback(data => {
     if (JSON.stringify(data) !== JSON.stringify(subjectTemplate)) {
       setSubjectTemplate(data);
-      const newSubjects = [...Array(getNumberOfSubjects(dataset)).keys()].map(() => JSON.parse(JSON.stringify(data)));
+      const size = getNumberOfSubjects(dataset);
+      const newSubjects = generateItemsFromTemplate(data, size);
       setSubjects(newSubjects);
     }
     const subjectsSchema = getSubjectsSchema();
     setSchema(subjectsSchema);
     setWizardStep(WIZARD_STEP_SUBJECTS);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataset, subjectTemplate]);
 
   const handleTissueSampleTemplateSubmit = useCallback(data => {
     if (JSON.stringify(data) !== JSON.stringify(tissueSampleTemplate)) {
       setTissueSampleTemplate(data);
-      const newTissueSamples = [...Array(getNumberOfTissueSamples(dataset)).keys()].map(() => JSON.parse(JSON.stringify(data)));
+      const size = getNumberOfTissueSamples(dataset);
+      const newTissueSamples = generateItemsFromTemplate(data, size);
       setTissueSamples(newTissueSamples);
     }
     const tissueSamplesSchema = getTissueSamplesSchema();
     setSchema(tissueSamplesSchema);
     setWizardStep(WIZARD_STEP_TISSUE_SAMPLES);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataset, tissueSampleTemplate]);
  
   const goBackToDatasetWizard = useCallback(() => {
@@ -235,8 +235,7 @@ const Wizard = () => {
         goBackToDatasetWizard();
         break;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [wizardStep]);
+  }, [wizardStep, dataset, goBackToDatasetWizard, goBackToSubjectTemplateWizard, goBackToTissueSampleTemplateWizard, goBackToSubjectGroupsWizard, goBackToSubjectsWizard, goBackToTissueSampleGroupsWizard, goBackToTissueSamplesWizard]);
 
   const handleReset = useCallback(() => {
     setDataset(undefined);
