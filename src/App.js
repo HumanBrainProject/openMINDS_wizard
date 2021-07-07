@@ -9,6 +9,11 @@ const App = () => (
     <div className="form">
       <Wizard />
     </div>
+    <footer class="footer app-footer">
+      <div class="container footer-container">
+        <p class="text-muted">Copyright © {new Date().getFullYear()} EBRAINS. All rights reserved.</p>
+      </div>
+    </footer>
   </div>
 );
 
