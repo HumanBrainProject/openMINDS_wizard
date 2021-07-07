@@ -145,10 +145,11 @@ const Wizard = () => {
         setWizardStep(WIZARD_STEP_TISSUE_SAMPLE_TEMPLATE);
       }
     } else {
-      const res = generateDocumentsFromDataset(dataset);
+      const res = generateDocumentsFromDataset(data);
       setResult(res);
+      setWizardStep(WIZARD_END);
     }
-  }, [dataset]);
+  }, []);
 
   const handleSubjectGroupSubmit = useCallback(data => {
     setSubjectGroups(data);
@@ -298,51 +299,53 @@ const Wizard = () => {
   }, [wizardStep]);
 
   const handleReset = useCallback(() => {
-    setDataset(null);
+    setDataset(undefined);
     setSubjectGroups(null);
     setSubjectTemplate(null);
     setSubjects([]);
+    setTissueSamples([]);
     setTissueSampleGroups([])
     setTissueSampleTemplate(null);
-    setTissueSamples([]);
     setSchema(datasetSchema);
     setResult(null);
+    setWizardStep(WIZARD_STEP_DATASET);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   switch (wizardStep) {
     case WIZARD_STEP_DATASET:
+      console.log(dataset);
       return (
         <DatasetWizard schema={schema} formData={dataset} onSubmit={handleDatasetSubmit} />
       );
-      case WIZARD_STEP_SUBJECT_GROUP:
-        return (
-          <SubjectGroupWizard schema={schema} formData={subjectGroups} onSubmit={handleSubjectGroupSubmit} onBack={handleGoBackToPreviousStepWizard} />
-        );
-      case WIZARD_STEP_SUBJECT_TEMPLATE:
-        return (
-          <SubjectTemplateWizard schema={schema} formData={subjectTemplate} onSubmit={handleSubjectTemplateSubmit} onBack={handleGoBackToPreviousStepWizard} />
-        );
-      case WIZARD_STEP_SUBJECTS:
-        return (
-          <SubjectsWizard schema={schema} formData={subjects} onSubmit={handleSubjectsSubmit} onBack={handleGoBackToPreviousStepWizard} />
-        );
-      case WIZARD_STEP_TISSUE_SAMPLE_GROUP:
-        return (
-          <TissueSampleGroupWizard schema={schema} formData={tissueSampleGroups} onSubmit={handleTissueSampleGroupsSubmit} onBack={handleGoBackToPreviousStepWizard} />
-        );
-      case WIZARD_STEP_TISSUE_SAMPLE_TEMPLATE:
-        return (
-          <TissueSampleTemplateWizard schema={schema} formData={tissueSampleTemplate} onSubmit={handleTissueSampleTemplateSubmit} onBack={handleGoBackToPreviousStepWizard} />
-        );
-      case WIZARD_STEP_TISSUE_SAMPLES:
-        return (
-          <TissueSamplesWizard schema={schema} formData={tissueSamples} onSubmit={handleTissueSamplesSubmit} onBack={handleGoBackToPreviousStepWizard} />
-        );
-      default:
-        return (
-          <Result result={result} onBack={handleGoBackToPreviousStepWizard} onReset={handleReset} />
-        );
+    case WIZARD_STEP_SUBJECT_GROUP:
+      return (
+        <SubjectGroupWizard schema={schema} formData={subjectGroups} onSubmit={handleSubjectGroupSubmit} onBack={handleGoBackToPreviousStepWizard} />
+      );
+    case WIZARD_STEP_SUBJECT_TEMPLATE:
+      return (
+        <SubjectTemplateWizard schema={schema} formData={subjectTemplate} onSubmit={handleSubjectTemplateSubmit} onBack={handleGoBackToPreviousStepWizard} />
+      );
+    case WIZARD_STEP_SUBJECTS:
+      return (
+        <SubjectsWizard schema={schema} formData={subjects} onSubmit={handleSubjectsSubmit} onBack={handleGoBackToPreviousStepWizard} />
+      );
+    case WIZARD_STEP_TISSUE_SAMPLE_GROUP:
+      return (
+        <TissueSampleGroupWizard schema={schema} formData={tissueSampleGroups} onSubmit={handleTissueSampleGroupsSubmit} onBack={handleGoBackToPreviousStepWizard} />
+      );
+    case WIZARD_STEP_TISSUE_SAMPLE_TEMPLATE:
+      return (
+        <TissueSampleTemplateWizard schema={schema} formData={tissueSampleTemplate} onSubmit={handleTissueSampleTemplateSubmit} onBack={handleGoBackToPreviousStepWizard} />
+      );
+    case WIZARD_STEP_TISSUE_SAMPLES:
+      return (
+        <TissueSamplesWizard schema={schema} formData={tissueSamples} onSubmit={handleTissueSamplesSubmit} onBack={handleGoBackToPreviousStepWizard} />
+      );
+    default:
+      return (
+        <Result result={result} onBack={handleGoBackToPreviousStepWizard} onReset={handleReset} />
+      );
   }
 };
 
