@@ -83,7 +83,32 @@
                   },
                   "unit": {
                     "type": "string",
-                    "title": "Unit"
+                    "title": "Unit",
+                    "enum": [
+                      "hour", 
+                      "week", 
+                      "liter", 
+                      "terabyte", 
+                      "kilobyte", 
+                      "millimeter", 
+                      "embryonic day", 
+                      "byte", 
+                      "bit", 
+                      "minute", 
+                      "year", 
+                      "millisecond", 
+                      "second", 
+                      "micrometer", 
+                      "centimeter", 
+                      "day", 
+                      "month", 
+                      "milliliter", 
+                      "gigabyte", 
+                      "meter", 
+                      "kilogram", 
+                      "megabyte", 
+                      "gram"
+                    ]
                   }
                 }
               },
@@ -97,7 +122,32 @@
                   },
                   "unit": {
                     "type": "string",
-                    "title": "Unit"
+                    "title": "Unit",
+                    "enum": [
+                      "hour", 
+                      "week", 
+                      "liter", 
+                      "terabyte", 
+                      "kilobyte", 
+                      "millimeter", 
+                      "embryonic day", 
+                      "byte", 
+                      "bit", 
+                      "minute", 
+                      "year", 
+                      "millisecond", 
+                      "second", 
+                      "micrometer", 
+                      "centimeter", 
+                      "day", 
+                      "month", 
+                      "milliliter", 
+                      "gigabyte", 
+                      "meter", 
+                      "kilogram", 
+                      "megabyte", 
+                      "gram"
+                    ]
                   }
                 }
               }

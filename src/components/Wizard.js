@@ -143,6 +143,11 @@ const Wizard = () => {
       setTissueSampleTemplate(data);
       const size = getNumberOfTissueSamples(dataset);
       const newTissueSamples = generateItemsFromTemplate(data, size);
+      newTissueSamples.forEach((sample, index) => {
+        if(sample.lookupLabel) {
+          sample.lookupLabel = `${sample.lookupLabel} ${index}`;
+        }
+      });
       setTissueSamples(newTissueSamples);
     }
     const tissueSamplesSchema = getTissueSamplesSchema();
