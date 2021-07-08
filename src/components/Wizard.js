@@ -126,6 +126,11 @@ const Wizard = () => {
       setSubjectTemplate(data);
       const size = getNumberOfSubjects(dataset);
       const newSubjects = generateItemsFromTemplate(data, size);
+      newSubjects.forEach((subject, index) => {
+        if(subject.lookupLabel) {
+          subject.lookupLabel = `${subject.lookupLabel} ${index}`;
+        }
+      });
       setSubjects(newSubjects);
     }
     const subjectsSchema = getSubjectsSchema();
