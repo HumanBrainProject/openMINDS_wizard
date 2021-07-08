@@ -10,6 +10,7 @@ import TissueSamplesWizard from './Wizard/TissueSamplesWizard';
 import Result from './Result';
 
 import * as datasetSchemaModule from '../schema/datasetSchema.json';
+
 import { 
   generateDocumentsFromDataset, 
   generateDocumentsFromDatasetAndSubjectGroups, 
@@ -50,10 +51,10 @@ const WIZARD_END = "WIZARD_END";
 const Wizard = () => {
 
   const [dataset, setDataset] = useState();
-  const [subjectGroups, setSubjectGroups] = useState([]);
+  const [subjectGroups, setSubjectGroups] = useState();
   const [subjectTemplate, setSubjectTemplate] = useState();
   const [subjects, setSubjects] = useState([]);
-  const [tissueSampleGroups, setTissueSampleGroups] = useState([]);
+  const [tissueSampleGroups, setTissueSampleGroups] = useState();
   const [tissueSampleTemplate, setTissueSampleTemplate] = useState();
   const [tissueSamples, setTissueSamples] = useState([]);
   const [wizardStep, setWizardStep] = useState(WIZARD_STEP_DATASET);
