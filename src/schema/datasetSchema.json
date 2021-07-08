@@ -7,7 +7,7 @@
       "properties": {
         "doi": {
           "type": "string",
-          "title": "Does a DOI exist for this dataset already?",
+          "title": "Does a DOI already exist for this dataset?",
           "enum": [
             "Yes",
             "No"
