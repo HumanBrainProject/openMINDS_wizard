@@ -17,7 +17,7 @@ const Result = React.memo(({ result, onBack, onReset}) => {
         </div>
       </div>
       <div className="container">
-        <div className="col-md-2 back-panel">
+        <div className="col-md-2">
           <button type="button" className="btn btn-info" onClick={onBack}>Back</button>
         </div>
         <div className="col-md-8 col-md-offset-2">
