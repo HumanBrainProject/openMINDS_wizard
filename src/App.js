@@ -6,7 +6,7 @@ const App = () => (
     <header className="App-header">
       <img src="openMINDS_logo.png" alt="openminds" height="100" />
     </header>
-    <div className="form">
+    <div className="container form">
       <Wizard />
     </div>
     <footer className="footer app-footer">

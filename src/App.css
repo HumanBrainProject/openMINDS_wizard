@@ -34,7 +34,8 @@
 }
 
 .form {
-  margin: 50px 20% 50px 20%;
+  margin-top: 50px;
+  margin-bottom: 50px;
   padding: 40px 60px 60px 60px;
   background-color: #f5f7fa;
   border-radius: 20px;
@@ -45,6 +46,10 @@
 }
 
 .download-btn {
+  margin-right: 10px;
+}
+
+.upload-btn {
   margin-right: 10px;
 }
 

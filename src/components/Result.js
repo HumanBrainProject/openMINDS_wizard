@@ -11,14 +11,19 @@ const Result = React.memo(({ result, onBack, onReset}) => {
       
   return (
     <div className="result">
-      <ReactJson collapsed={1} name={false} src={result} />
-      <div className="footer">
-        <div className="col-xs-5 back-panel">
+      <div className="container">
+        <div className="col-md-12">
+          <ReactJson collapsed={1} name={false} src={result} />
+        </div>
+      </div>
+      <div className="container">
+        <div className="col-md-2 back-panel">
           <button type="button" className="btn btn-info" onClick={onBack}>Back</button>
         </div>
-        <div className="col-xs-5 col-xs-offset-2 submit-panel">
+        <div className="col-md-8 col-md-offset-2">
           <button className="btn btn-success download-btn" onClick={downloadJson}>Download</button>
-          <button type="button" className="btn btn-info" onClick={onReset}>Create another Dataset</button>
+          <button className="btn btn-primary upload-btn" disabled>Upload to EBRAINS KG</button>
+          <button className="btn btn-info" onClick={onReset}>Create another Dataset</button>
         </div>
       </div>
     </div>
