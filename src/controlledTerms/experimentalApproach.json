@@ -1,0 +1,150 @@
+[
+  {
+    "identifier": "https://openminds.ebrains.eu/instances/experimentalApproach/anatomy",
+    "name": "anatomy"
+  },
+  {
+    "identifier": "https://openminds.ebrains.eu/instances/experimentalApproach/behavior",
+    "name": "behavior"
+  },
+  {
+    "identifier": "https://openminds.ebrains.eu/instances/experimentalApproach/cellBiology",
+    "name": "cell biology"
+  },
+  {
+    "identifier": "https://openminds.ebrains.eu/instances/experimentalApproach/cellMorphology",
+    "name": "cell morphology"
+  },
+  {
+    "identifier": "https://openminds.ebrains.eu/instances/experimentalApproach/cellPopulationCharacterization",
+    "name": "cell population characterization"
+  },
+  {
+    "identifier": "https://openminds.ebrains.eu/instances/experimentalApproach/cellPopulationImaging",
+    "name": "cell population imaging"
+  },
+  {
+    "identifier": "https://openminds.ebrains.eu/instances/experimentalApproach/cellPopulationManipulation",
+    "name": "cell population manipulation"
+  },
+  {
+    "identifier": "https://openminds.ebrains.eu/instances/experimentalApproach/chemogenetics",
+    "name": "chemogenetics"
+  },
+  {
+    "identifier": "https://openminds.ebrains.eu/instances/experimentalApproach/clinicalResearch",
+    "name": "clinical research"
+  },
+  {
+    "identifier": "https://openminds.ebrains.eu/instances/experimentalApproach/computationalModeling",
+    "name": "computational modeling"
+  },
+  {
+    "identifier": "https://openminds.ebrains.eu/instances/experimentalApproach/developmentalBiology",
+    "name": "developmental biology"
+  },
+  {
+    "identifier": "https://openminds.ebrains.eu/instances/experimentalApproach/ecology",
+    "name": "ecology"
+  },
+  {
+    "identifier": "https://openminds.ebrains.eu/instances/experimentalApproach/electrophysiology",
+    "name": "electrophysiology"
+  },
+  {
+    "identifier": "https://openminds.ebrains.eu/instances/experimentalApproach/epidemiology",
+    "name": "epidemiology"
+  },
+  {
+    "identifier": "https://openminds.ebrains.eu/instances/experimentalApproach/epigenomics",
+    "name": "epigenomics"
+  },
+  {
+    "identifier": "https://openminds.ebrains.eu/instances/experimentalApproach/ethology",
+    "name": "ethology"
+  },
+  {
+    "identifier": "https://openminds.ebrains.eu/instances/experimentalApproach/evolutionaryBiology",
+    "name": "evolutionary biology"
+  },
+  {
+    "identifier": "https://openminds.ebrains.eu/instances/experimentalApproach/expression",
+    "name": "expression"
+  },
+  {
+    "identifier": "https://openminds.ebrains.eu/instances/experimentalApproach/expressionCharacterization",
+    "name": "expression characterization"
+  },
+  {
+    "identifier": "https://openminds.ebrains.eu/instances/experimentalApproach/genetics",
+    "name": "genetics"
+  },
+  {
+    "identifier": "https://openminds.ebrains.eu/instances/experimentalApproach/genomics",
+    "name": "genomics"
+  },
+  {
+    "identifier": "https://openminds.ebrains.eu/instances/experimentalApproach/histology",
+    "name": "histology"
+  },
+  {
+    "identifier": "https://openminds.ebrains.eu/instances/experimentalApproach/informatics",
+    "name": "informatics"
+  },
+  {
+    "identifier": "https://openminds.ebrains.eu/instances/experimentalApproach/metabolomics",
+    "name": "metabolomics"
+  },
+  {
+    "identifier": "https://openminds.ebrains.eu/instances/experimentalApproach/microscopy",
+    "name": "microscopy"
+  },
+  {
+    "identifier": "https://openminds.ebrains.eu/instances/experimentalApproach/morphology",
+    "name": "morphology"
+  },
+  {
+    "identifier": "https://openminds.ebrains.eu/instances/experimentalApproach/multimodalResearch",
+    "name": "multimodal research"
+  },
+  {
+    "identifier": "https://openminds.ebrains.eu/instances/experimentalApproach/multiomics",
+    "name": "multiomics"
+  },
+  {
+    "identifier": "https://openminds.ebrains.eu/instances/experimentalApproach/neuralConnectivity",
+    "name": "neural connectivity"
+  },
+  {
+    "identifier": "https://openminds.ebrains.eu/instances/experimentalApproach/neuroimaging",
+    "name": "neuroimaging"
+  },
+  {
+    "identifier": "https://openminds.ebrains.eu/instances/experimentalApproach/omics",
+    "name": "omics"
+  },
+  {
+    "identifier": "https://openminds.ebrains.eu/instances/experimentalApproach/optogenetics",
+    "name": "optogenetics"
+  },
+  {
+    "identifier": "https://openminds.ebrains.eu/instances/experimentalApproach/physiology",
+    "name": "physiology"
+  },
+  {
+    "identifier": "https://openminds.ebrains.eu/instances/experimentalApproach/proteomics",
+    "name": "proteomics"
+  },
+  {
+    "identifier": "https://openminds.ebrains.eu/instances/experimentalApproach/radiology",
+    "name": "radiology"
+  },
+  {
+    "identifier": "https://openminds.ebrains.eu/instances/experimentalApproach/spatialTranscriptomics",
+    "name": "spatial transcriptomics"
+  },
+  {
+    "identifier": "https://openminds.ebrains.eu/instances/experimentalApproach/transcriptomics",
+    "name": "transcriptomics"
+  }
+]

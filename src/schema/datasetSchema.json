@@ -106,6 +106,7 @@
     "accessibility": {
       "type": "string",
       "title": "Accessibility",
+      "controlledTerm": "productAccessibility",
       "enum": [
         "controlled access",
         "free access",
@@ -120,6 +121,7 @@
     "type": {
       "type": "string",
       "title": "Type",
+      "controlledTerm": "semanticDataType",
       "enum": [
         "derived data",
         "experimental data",
@@ -130,6 +132,7 @@
     "license": {
       "type": "string",
       "title": "License",
+      "controlledTerm": "license",
       "enum": [
         "AGPL-3.0-only",
         "Apache-2.0",
@@ -195,6 +198,7 @@
     "ethicsAssessment": {
       "type": "string",
       "title": "Ethics assessment",
+      "controlledTerm": "ethicsAssessment",
       "enum": [
         "EU compliant, non sensitive",
         "EU compliant, sensitive",
@@ -204,6 +208,7 @@
     "experimentalApproach": {
       "type": "string",
       "title": "Experimental approach",
+      "controlledTerm": "experimentalApproach",
       "enum": [
         "anatomy",
         "behavior",

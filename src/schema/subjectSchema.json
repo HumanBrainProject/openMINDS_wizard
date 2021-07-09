@@ -8,6 +8,7 @@
     "species": {
       "type": "string",
       "title": "Species",
+      "controlledTerm": "species",
       "enum": [
         "Mustela putorius furo",
         "Monodelphis domestica",
@@ -28,6 +29,7 @@
     "strains": {
       "type": "string",
       "title": "Strains",
+      "controlledTerm": "strain",
       "enum": [
         "Crl:WI",
         "C57BL/6J-Tg(Thy1-GCaMP6f)GP5.17Dkim/J",
@@ -49,6 +51,7 @@
     "biologicalSex": {
       "type": "string",
       "title": "Biological sex",
+      "controlledTerm": "biologicalSex",
       "enum": [
         "female",
         "male",
@@ -58,6 +61,7 @@
     "phenotype": {
       "type": "string",
       "title": "Phenotype",
+      "controlledTerm": "phenotype",
       "enum": [
         "wildtype"
       ]
@@ -80,6 +84,7 @@
               "unit": {
                 "type": "string",
                 "title": "Unit",
+                "controlledTerm": "unitOfMeasurement",
                 "enum": [
                   "hour", 
                   "week", 
@@ -119,6 +124,7 @@
               "unit": {
                 "type": "string",
                 "title": "Unit",
+                "controlledTerm": "unitOfMeasurement",
                 "enum": [
                   "hour", 
                   "week", 

@@ -8,6 +8,7 @@
     "typesOfTheTissue": {
       "type": "string",
       "title": "Types of the tissue",
+      "controlledTerm": "tissueSampleType",
       "enum": [
         "cell culture",
         "whole organ",
@@ -19,6 +20,7 @@
     "species": {
       "type": "string",
       "title": "Species of the tissue",
+      "controlledTerm": "species",
       "enum": [
         "Mustela putorius furo",
         "Monodelphis domestica",
@@ -39,6 +41,7 @@
     "strain": {
       "type": "string",
       "title": "Strains of the tissue",
+      "controlledTerm": "strain",
       "enum": [
         "Crl:WI",
         "C57BL/6J-Tg(Thy1-GCaMP6f)GP5.17Dkim/J",
@@ -60,6 +63,7 @@
     "biologicalSex": {
       "type": "string",
       "title": "Biological sex",
+      "controlledTerm": "biologicalSex",
       "enum": [
         "female",
         "male",
@@ -69,6 +73,7 @@
     "phenotype": {
       "type": "string",
       "title": "Phenotype",
+      "controlledTerm": "phenotype",
       "enum": [
         "wildtype"
       ]
@@ -76,6 +81,7 @@
     "origin": {
       "type": "string",
       "title": "Origin",
+      "controlledTerm": "cellType",
       "enum": [
         "sensory neuron",
         "cortical interneuron",
@@ -107,6 +113,7 @@
               "unit": {
                 "type": "string",
                 "title": "Unit",
+                "controlledTerm": "unitOfMeasurement",
                 "enum": [
                   "hour", 
                   "week", 
@@ -146,6 +153,7 @@
               "unit": {
                 "type": "string",
                 "title": "Unit",
+                "controlledTerm": "unitOfMeasurement",
                 "enum": [
                   "hour", 
                   "week", 
