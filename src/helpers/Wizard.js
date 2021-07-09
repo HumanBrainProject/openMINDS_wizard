@@ -108,8 +108,7 @@ export const getTissueSamplesSchema = subjects => {
   return schema;
 };
 
-
-export const getArtificialTissueSampleCollectionsSchema = dataset => {
+export const getTissueSampleCollectionsSchema = dataset => {
   const items = JSON.parse(JSON.stringify(tissueSampleSchema))
   items.properties.quantity = {
     type: "number",
@@ -122,12 +121,6 @@ export const getArtificialTissueSampleCollectionsSchema = dataset => {
     minItems: 1,
     items: items
   };
-};
-
-export const getTissueSampleCollectionsSchema = (dataset, subjects) => {
-  const subjectEnumList = getSubjectEnumList(subjects);
-  const schema = getArtificialTissueSampleCollectionsSchema(dataset);
-  return schema;
 };
 
 export const generateItemsFromTemplate = (template, size) => [...Array(size).keys()].map(() => JSON.parse(JSON.stringify(template)));
