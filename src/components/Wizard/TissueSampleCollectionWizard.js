@@ -1,7 +1,7 @@
 import React from 'react';
 import Form from '@rjsf/core';
 
-const TissueSampleGroupWizard = React.memo(({ schema, formData, onSubmit, onBack }) => {
+const TissueSampleCollectionWizard = React.memo(({ schema, formData, onSubmit, onBack }) => {
 
   const handleOnSubmit = ({ formData }) => onSubmit(formData);
 
@@ -18,4 +18,4 @@ const TissueSampleGroupWizard = React.memo(({ schema, formData, onSubmit, onBack
   );
 });
 
-export default TissueSampleGroupWizard;
+export default TissueSampleCollectionWizard;

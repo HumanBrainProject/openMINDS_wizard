@@ -4,7 +4,7 @@ import DatasetWizard from './Wizard/DatasetWizard';
 import SubjectGroupWizard from './Wizard/SubjectGroupWizard';
 import SubjectTemplateWizard from './Wizard/SubjectTemplateWizard';
 import SubjectsWizard from './Wizard/SubjectsWizard';
-import TissueSampleGroupWizard from './Wizard/TissueSampleGroupWizard';
+import TissueSampleCollectionWizard from './Wizard/TissueSampleCollectionWizard';
 import TissueSampleTemplateWizard from './Wizard/TissueSampleTemplateWizard';
 import TissueSamplesWizard from './Wizard/TissueSamplesWizard';
 import Result from './Result';
@@ -15,8 +15,10 @@ import {
   generateDocumentsFromDataset, 
   generateDocumentsFromDatasetAndSubjectGroups, 
   generateDocumentsFromDatasetAndSubjects, 
-  generateDocumentsFromDatasetAndTissueSampleGroups, 
-  generateDocumentsFromDatasetAndTissueSamples
+  generateDocumentsFromDatasetAndTissueSampleCollections,
+  generateDocumentsFromDatasetAndArtificialTissueSampleCollections,
+  generateDocumentsFromDatasetAndTissueSamples,
+  generateDocumentsFromDatasetAndArtificialTissueSamples
 }  from '../helpers/Translator';
 
 import {
@@ -26,11 +28,15 @@ import {
   getNumberOfTissueSamples,
   getStudyTopic,
   getSubjectTemplateSchema,
+  getSubjectGroupsSchemaForTissueSample,
   getTissueSampleTemplateSchema,
+  getArtificialTissueSampleTemplateSchema,
   getSubjectGroupsSchema,
   getSubjectsSchema,
   getTissueSamplesSchema,
-  getTissueSampleGroupsSchema,
+  getArtificialTissueSamplesSchema,
+  getTissueSampleCollectionsSchema,
+  getArtificialTissueSampleCollectionsSchema,
   generateItemsFromTemplate
 } from '../helpers/Wizard';
 
@@ -38,6 +44,7 @@ const datasetSchema = datasetSchemaModule.default;
 
 const STUDY_TOPIC_SUBJECT_VALUE = "Subject";
 const STUDY_TOPIC_TISSUE_SAMPLE_VALUE = "Tissue sample";
+const STUDY_TOPIC_ARTIFICIAL_TISSUE_SAMPLE_VALUE = "Artificial tissue sample";
 
 const WIZARD_STEP_DATASET = "WIZARD_STEP_DATASET";
 const WIZARD_STEP_SUBJECT_GROUP = "WIZARD_STEP_SUBJECT_GROUP";
@@ -54,7 +61,7 @@ const Wizard = () => {
   const [subjectGroups, setSubjectGroups] = useState();
   const [subjectTemplate, setSubjectTemplate] = useState();
   const [subjects, setSubjects] = useState([]);
-  const [tissueSampleGroups, setTissueSampleGroups] = useState();
+  const [tissueSampleCollections, setTissueSampleCollections] = useState();
   const [tissueSampleTemplate, setTissueSampleTemplate] = useState();
   const [tissueSamples, setTissueSamples] = useState([]);
   const [wizardStep, setWizardStep] = useState(WIZARD_STEP_DATASET);
@@ -77,12 +84,16 @@ const Wizard = () => {
         setWizardStep(WIZARD_STEP_SUBJECT_TEMPLATE);
       }
     } else if (studyTopic === STUDY_TOPIC_TISSUE_SAMPLE_VALUE) {
+      const subjectGroupsSchema = getSubjectGroupsSchemaForTissueSample();
+      setSchema(subjectGroupsSchema);
+      setWizardStep(WIZARD_STEP_SUBJECT_GROUP);
+    } else if (studyTopic === STUDY_TOPIC_ARTIFICIAL_TISSUE_SAMPLE_VALUE) {
       if (areTissueSamplesGrouped(data)) {
-        const tissueSampleGroupsSchema = getTissueSampleGroupsSchema(data);
-        setSchema(tissueSampleGroupsSchema);
+        const tissueSampleCollectionsSchema = getArtificialTissueSampleCollectionsSchema(data);
+        setSchema(tissueSampleCollectionsSchema);
         setWizardStep(WIZARD_STEP_TISSUE_SAMPLE_GROUP);
       } else {
-        const tissueSampleTemplateSchema = getTissueSampleTemplateSchema();
+        const tissueSampleTemplateSchema = getArtificialTissueSampleTemplateSchema();
         setSchema(tissueSampleTemplateSchema);
         setWizardStep(WIZARD_STEP_TISSUE_SAMPLE_TEMPLATE);
       }
@@ -95,9 +106,22 @@ const Wizard = () => {
 
   const handleSubjectGroupSubmit = useCallback(data => {
     setSubjectGroups(data);
-    const res = generateDocumentsFromDatasetAndSubjectGroups(dataset, data);
-    setResult(res);
-    setWizardStep(WIZARD_END);
+    const studyTopic = getStudyTopic(dataset);
+    if (studyTopic === STUDY_TOPIC_TISSUE_SAMPLE_VALUE) {
+      if (areTissueSamplesGrouped(dataset)) {
+        const tissueSampleCollectionsSchema = getTissueSampleCollectionsSchema(dataset, data);
+        setSchema(tissueSampleCollectionsSchema);
+        setWizardStep(WIZARD_STEP_TISSUE_SAMPLE_GROUP);
+      } else {
+        const tissueSampleTemplateSchema = getTissueSampleTemplateSchema(data);
+        setSchema(tissueSampleTemplateSchema);
+        setWizardStep(WIZARD_STEP_TISSUE_SAMPLE_TEMPLATE);
+      }
+    } else { //studyTopic === STUDY_TOPIC_SUBJECT_VALUE
+      const res = generateDocumentsFromDatasetAndSubjectGroups(dataset, data);
+      setResult(res);
+      setWizardStep(WIZARD_END);
+    }
   }, [dataset]);
 
   const handleSubjectsSubmit = useCallback(data => {
@@ -107,19 +131,31 @@ const Wizard = () => {
     setWizardStep(WIZARD_END);
   }, [dataset]);
 
-  const handleTissueSampleGroupsSubmit = useCallback(data => {
-    setTissueSampleGroups(data);
-    const res = generateDocumentsFromDatasetAndTissueSampleGroups(dataset, data);
-    setResult(res);
+  const handleTissueSampleCollectionsSubmit = useCallback(data => {
+    setTissueSampleCollections(data);
+    const studyTopic = getStudyTopic(dataset);
+    if (studyTopic === STUDY_TOPIC_ARTIFICIAL_TISSUE_SAMPLE_VALUE) {
+      const res = generateDocumentsFromDatasetAndArtificialTissueSampleCollections(dataset, data);
+      setResult(res);
+    } else {
+      const res = generateDocumentsFromDatasetAndTissueSampleCollections(dataset, subjectGroups, data);
+      setResult(res);
+    }
     setWizardStep(WIZARD_END);
-  }, [dataset]);
+  }, [dataset, subjectGroups]);
 
   const handleTissueSamplesSubmit = useCallback(data => {
     setTissueSamples(data);
-    const res = generateDocumentsFromDatasetAndTissueSamples(dataset, data);
-    setResult(res);
+    const studyTopic = getStudyTopic(dataset);
+    if (studyTopic === STUDY_TOPIC_ARTIFICIAL_TISSUE_SAMPLE_VALUE) {
+      const res = generateDocumentsFromDatasetAndArtificialTissueSamples(dataset, data);
+      setResult(res);
+    } else {
+      const res = generateDocumentsFromDatasetAndTissueSamples(dataset, subjectGroups, data);
+      setResult(res);
+    }
     setWizardStep(WIZARD_END);
-  }, [dataset]);
+  }, [dataset, subjectGroups]);
 
   const handleSubjectTemplateSubmit = useCallback(data => {
     if (JSON.stringify(data) !== JSON.stringify(subjectTemplate)) {
@@ -128,7 +164,7 @@ const Wizard = () => {
       const newSubjects = generateItemsFromTemplate(data, size);
       newSubjects.forEach((subject, index) => {
         if(subject.lookupLabel) {
-          subject.lookupLabel = `${subject.lookupLabel} ${index}`;
+          subject.lookupLabel = `${subject.lookupLabel} ${index + 1}`;
         }
       });
       setSubjects(newSubjects);
@@ -145,15 +181,21 @@ const Wizard = () => {
       const newTissueSamples = generateItemsFromTemplate(data, size);
       newTissueSamples.forEach((sample, index) => {
         if(sample.lookupLabel) {
-          sample.lookupLabel = `${sample.lookupLabel} ${index}`;
+          sample.lookupLabel = `${sample.lookupLabel} ${index + 1}`;
         }
       });
       setTissueSamples(newTissueSamples);
     }
-    const tissueSamplesSchema = getTissueSamplesSchema();
-    setSchema(tissueSamplesSchema);
+    const studyTopic = getStudyTopic(dataset);
+    if (studyTopic === STUDY_TOPIC_ARTIFICIAL_TISSUE_SAMPLE_VALUE) {
+      const tissueSamplesSchema = getArtificialTissueSamplesSchema();
+      setSchema(tissueSamplesSchema);
+    } else { // if (studyTopic === STUDY_TOPIC_TISSUE_SAMPLE_VALUE)
+      const tissueSamplesSchema = getTissueSamplesSchema(subjectGroups);
+      setSchema(tissueSamplesSchema);
+    }
     setWizardStep(WIZARD_STEP_TISSUE_SAMPLES);
-  }, [dataset, tissueSampleTemplate]);
+  }, [dataset, subjectGroups, tissueSampleTemplate]);
  
   const goBackToDatasetWizard = useCallback(() => {
     setSchema(datasetSchema);
@@ -180,15 +222,21 @@ const Wizard = () => {
   }, []);
 
   const goBackToSubjectGroupsWizard = useCallback(() => {
-    const subjectGroupsSchema = getSubjectGroupsSchema();
-    setSchema(subjectGroupsSchema);
+    const studyTopic = getStudyTopic(dataset);
+    if (studyTopic === STUDY_TOPIC_TISSUE_SAMPLE_VALUE) {
+      const subjectGroupsSchema = getSubjectGroupsSchemaForTissueSample();
+      setSchema(subjectGroupsSchema);
+    } else { // if (studyTopic === STUDY_TOPIC_SUBJECT_VALUE)
+      const subjectGroupsSchema = getSubjectGroupsSchema();
+      setSchema(subjectGroupsSchema);
+    }
     setResult(null);
     setWizardStep(WIZARD_STEP_SUBJECT_GROUP);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dataset]);
 
   const goBackToTissueSampleTemplateWizard = useCallback(() => {
-    const tissueSampleTemplateSchema = getTissueSampleTemplateSchema();
+    const tissueSampleTemplateSchema = getArtificialTissueSampleTemplateSchema();
     setSchema(tissueSampleTemplateSchema);
     setResult(null);
     setWizardStep(WIZARD_STEP_TISSUE_SAMPLE_TEMPLATE);
@@ -196,28 +244,47 @@ const Wizard = () => {
   }, []);
 
   const goBackToTissueSamplesWizard = useCallback(() => {
-    const tissueSamplesSchema = getTissueSamplesSchema();
-    setSchema(tissueSamplesSchema);
+    const studyTopic = getStudyTopic(dataset);
+    if (studyTopic === STUDY_TOPIC_ARTIFICIAL_TISSUE_SAMPLE_VALUE) {
+      const tissueSamplesSchema = getArtificialTissueSamplesSchema();
+      setSchema(tissueSamplesSchema);
+    } else { // if (studyTopic === STUDY_TOPIC_TISSUE_SAMPLE_VALUE)
+      const tissueSamplesSchema = getTissueSamplesSchema(subjectGroups);
+      setSchema(tissueSamplesSchema);
+    }
     setResult(null);
     setWizardStep(WIZARD_STEP_TISSUE_SAMPLES);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dataset, subjectGroups]);
 
-  const goBackToTissueSampleGroupsWizard = useCallback(() => {
-    const tissueSampleGroupsSchema = getTissueSampleGroupsSchema();
-    setSchema(tissueSampleGroupsSchema);
+  const goBackToTissueSampleCollectionsWizard = useCallback(() => {
+    const studyTopic = getStudyTopic(dataset);
+    if (studyTopic === STUDY_TOPIC_ARTIFICIAL_TISSUE_SAMPLE_VALUE) {
+      const tissueSampleCollectionsSchema = getArtificialTissueSampleCollectionsSchema();
+      setSchema(tissueSampleCollectionsSchema);
+    } else { // if (studyTopic === STUDY_TOPIC_TISSUE_SAMPLE_VALUE)
+      const tissueSampleCollectionsSchema = getTissueSampleCollectionsSchema(subjectGroups);
+      setSchema(tissueSampleCollectionsSchema);
+    }
     setResult(null);
     setWizardStep(WIZARD_STEP_TISSUE_SAMPLE_GROUP);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dataset, subjectGroups]);
 
   const handleGoBackToPreviousStepWizard = useCallback(() => {
+    const studyTopic = getStudyTopic(dataset);
     switch (wizardStep) {
       case WIZARD_STEP_SUBJECT_GROUP:
       case WIZARD_STEP_SUBJECT_TEMPLATE:
+        goBackToDatasetWizard();
+        break;
       case WIZARD_STEP_TISSUE_SAMPLE_GROUP:
       case WIZARD_STEP_TISSUE_SAMPLE_TEMPLATE:
-        goBackToDatasetWizard();
+        if (studyTopic === STUDY_TOPIC_TISSUE_SAMPLE_VALUE) {
+          goBackToSubjectGroupsWizard();
+        } else { // if (studyTopic === STUDY_TOPIC_ARTIFICIAL_TISSUE_SAMPLE_VALUE)
+          goBackToDatasetWizard();
+        }
         break;
       case WIZARD_STEP_SUBJECTS:
         goBackToSubjectTemplateWizard();
@@ -226,16 +293,15 @@ const Wizard = () => {
         goBackToTissueSampleTemplateWizard();
         break;
       case WIZARD_END:
-        const studyTopic = getStudyTopic(dataset);
         if (studyTopic === STUDY_TOPIC_SUBJECT_VALUE) {
           if (areSubjectsGrouped(dataset)) {
             goBackToSubjectGroupsWizard();
           } else {
             goBackToSubjectsWizard();
           }
-        } else if (studyTopic === STUDY_TOPIC_TISSUE_SAMPLE_VALUE) {
+        } else if (studyTopic === STUDY_TOPIC_TISSUE_SAMPLE_VALUE || studyTopic === STUDY_TOPIC_ARTIFICIAL_TISSUE_SAMPLE_VALUE) {
           if (areTissueSamplesGrouped(dataset)) {
-            goBackToTissueSampleGroupsWizard();  
+            goBackToTissueSampleCollectionsWizard();  
           } else {
             goBackToTissueSamplesWizard();  
           }
@@ -247,7 +313,7 @@ const Wizard = () => {
         goBackToDatasetWizard();
         break;
     }
-  }, [wizardStep, dataset, goBackToDatasetWizard, goBackToSubjectTemplateWizard, goBackToTissueSampleTemplateWizard, goBackToSubjectGroupsWizard, goBackToSubjectsWizard, goBackToTissueSampleGroupsWizard, goBackToTissueSamplesWizard]);
+  }, [wizardStep, dataset, goBackToDatasetWizard, goBackToSubjectTemplateWizard, goBackToTissueSampleTemplateWizard, goBackToSubjectGroupsWizard, goBackToSubjectsWizard, goBackToTissueSampleCollectionsWizard, goBackToTissueSamplesWizard]);
 
   const handleReset = useCallback(() => {
     setDataset(undefined);
@@ -255,7 +321,7 @@ const Wizard = () => {
     setSubjectTemplate(null);
     setSubjects([]);
     setTissueSamples([]);
-    setTissueSampleGroups([])
+    setTissueSampleCollections([])
     setTissueSampleTemplate(null);
     setSchema(datasetSchema);
     setResult(null);
@@ -282,7 +348,7 @@ const Wizard = () => {
       );
     case WIZARD_STEP_TISSUE_SAMPLE_GROUP:
       return (
-        <TissueSampleGroupWizard schema={schema} formData={tissueSampleGroups} onSubmit={handleTissueSampleGroupsSubmit} onBack={handleGoBackToPreviousStepWizard} />
+        <TissueSampleCollectionWizard schema={schema} formData={tissueSampleCollections} onSubmit={handleTissueSampleCollectionsSubmit} onBack={handleGoBackToPreviousStepWizard} />
       );
     case WIZARD_STEP_TISSUE_SAMPLE_TEMPLATE:
       return (

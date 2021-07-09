@@ -271,7 +271,8 @@
       "title": "What have you been studying?",
       "enum": [
         "Subject",
-        "Tissue sample"
+        "Tissue sample",
+        "Artificial tissue sample"
       ]
     }
   },
@@ -297,7 +298,7 @@
             "numberOfSubjects": {
               "type": "number",
               "title": "How many subjects did you study?",
-              "minimum": 0
+              "minimum": 1
             },
             "individualSubjects": {
               "type": "boolean",
@@ -309,13 +310,14 @@
           "properties": {
             "studyTopic": {
               "enum": [
-                "Tissue sample"
+                "Tissue sample",
+                "Artificial tissue sample"
               ]
             },
             "numberOfTissueSamples": {
               "type": "number",
               "title": "How many tissue samples did you study?",
-              "minimum": 0
+              "minimum": 1
             },
             "individualTissueSamples": {
               "type": "boolean",

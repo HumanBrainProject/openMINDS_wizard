@@ -62,94 +62,88 @@
         "wildtype"
       ]
     },
-    "studyState": {
-      "type": "object",
-      "title": "",
-      "properties": {
-        "state": {
-          "type": "array",
-          "title": "States",
-          "description": "If the study of the subjects was done at different states, please fill in the information",
-          "items": {
+    "studiedStates": {
+      "type": "array",
+      "title": "Studied state(s)",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "ageCategory": {
             "type": "object",
+            "title": "Age",
             "properties": {
-              "ageCategory": {
-                "type": "object",
-                "title": "Age",
-                "properties": {
-                  "value": {
-                    "type": "string",
-                    "title": "Value / Value range"
-                  },
-                  "unit": {
-                    "type": "string",
-                    "title": "Unit",
-                    "enum": [
-                      "hour", 
-                      "week", 
-                      "liter", 
-                      "terabyte", 
-                      "kilobyte", 
-                      "millimeter", 
-                      "embryonic day", 
-                      "byte", 
-                      "bit", 
-                      "minute", 
-                      "year", 
-                      "millisecond", 
-                      "second", 
-                      "micrometer", 
-                      "centimeter", 
-                      "day", 
-                      "month", 
-                      "milliliter", 
-                      "gigabyte", 
-                      "meter", 
-                      "kilogram", 
-                      "megabyte", 
-                      "gram"
-                    ]
-                  }
-                }
+              "value": {
+                "type": "string",
+                "title": "Value / Value range"
               },
-              "weight": {
-                "type": "object",
-                "title": "Weight",
-                "properties": {
-                  "value": {
-                    "type": "string",
-                    "title": "Value / Value range"
-                  },
-                  "unit": {
-                    "type": "string",
-                    "title": "Unit",
-                    "enum": [
-                      "hour", 
-                      "week", 
-                      "liter", 
-                      "terabyte", 
-                      "kilobyte", 
-                      "millimeter", 
-                      "embryonic day", 
-                      "byte", 
-                      "bit", 
-                      "minute", 
-                      "year", 
-                      "millisecond", 
-                      "second", 
-                      "micrometer", 
-                      "centimeter", 
-                      "day", 
-                      "month", 
-                      "milliliter", 
-                      "gigabyte", 
-                      "meter", 
-                      "kilogram", 
-                      "megabyte", 
-                      "gram"
-                    ]
-                  }
-                }
+              "unit": {
+                "type": "string",
+                "title": "Unit",
+                "enum": [
+                  "hour", 
+                  "week", 
+                  "liter", 
+                  "terabyte", 
+                  "kilobyte", 
+                  "millimeter", 
+                  "embryonic day", 
+                  "byte", 
+                  "bit", 
+                  "minute", 
+                  "year", 
+                  "millisecond", 
+                  "second", 
+                  "micrometer", 
+                  "centimeter", 
+                  "day", 
+                  "month", 
+                  "milliliter", 
+                  "gigabyte", 
+                  "meter", 
+                  "kilogram", 
+                  "megabyte", 
+                  "gram"
+                ]
+              }
+            }
+          },
+          "weight": {
+            "type": "object",
+            "title": "Weight",
+            "properties": {
+              "value": {
+                "type": "string",
+                "title": "Value / Value range"
+              },
+              "unit": {
+                "type": "string",
+                "title": "Unit",
+                "enum": [
+                  "hour", 
+                  "week", 
+                  "liter", 
+                  "terabyte", 
+                  "kilobyte", 
+                  "millimeter", 
+                  "embryonic day", 
+                  "byte", 
+                  "bit", 
+                  "minute", 
+                  "year", 
+                  "millisecond", 
+                  "second", 
+                  "micrometer", 
+                  "centimeter", 
+                  "day", 
+                  "month", 
+                  "milliliter", 
+                  "gigabyte", 
+                  "meter", 
+                  "kilogram", 
+                  "megabyte", 
+                  "gram"
+                ]
               }
             }
           }
