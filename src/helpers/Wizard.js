@@ -38,19 +38,17 @@ export const getArtificialTissueSampleTemplateSchema = () => ({...tissueSampleSc
 
 export const getTissueSampleTemplateSchema = subjects => {
   const subjectEnumList = getSubjectEnumList(subjects);
-  return {
+  const schema =  {
     ...tissueSampleSchema,
-    title: "Tissue sample template",
-    properties: {
-      ...tissueSampleSchema.properties,
-      subject: {
-        type: "string",
-        title: "Subject",
-        enum: subjectEnumList.map(e => e.id),
-        enumNames: subjectEnumList.map(e => e.name)
-      }
-    }
-  }
+    title: "Tissue sample template"
+  };
+  schema.properties.studiedStates.items.properties.subjectGroupState = {
+    type: "string",
+    title: "Subject state",
+    enum: subjectEnumList.map(e => e.id),
+    enumNames: subjectEnumList.map(e => e.name)
+  };
+  return schema;
 };
 
 export const getSubjectGroupsSchema = dataset => {
@@ -129,9 +127,9 @@ export const getArtificialTissueSampleCollectionsSchema = dataset => {
 export const getTissueSampleCollectionsSchema = (dataset, subjects) => {
   const subjectEnumList = getSubjectEnumList(subjects);
   const schema = getArtificialTissueSampleCollectionsSchema(dataset);
-  schema.items.properties.subject = {
+  schema.properties.studiedStates.items.properties.subjectGroupState = {
     type: "string",
-    title: "Subject",
+    title: "Subject state",
     enum: subjectEnumList.map(e => e.id),
     enumNames: subjectEnumList.map(e => e.name)
   };
