@@ -177,7 +177,6 @@ const createTissueSampleStateDocument = (documents, studiedState) => {
     const target = documents.ids[id];
     setPropertyWithLinks(documents, target, "age", studiedState.ageCategory, createQuantitativeValueDocument);
     setPropertyWithLinks(documents, target, "weight", studiedState.weight, createQuantitativeValueDocument);
-    debugger;
     if (studiedState.subjectGroupState) {
         const subjectGroupStateId = `${EBRAINS_VOCAB}${studiedState.subjectGroupState}`;
         if (documents.ids[subjectGroupStateId]) {
