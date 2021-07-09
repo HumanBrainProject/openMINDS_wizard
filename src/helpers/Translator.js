@@ -111,8 +111,12 @@ const createBiologicalSexDocument = (documents, biologicalSex) => {
 const createProtocolExecutionDocument = (documents, protocol) => {
     const id = createDocument(documents, `${OPENMINDS_VOCAB}ProtocolExecution`, `${protocol.input}-${protocol.output}`);
     const target = documents.ids[id];
-    setProperty(target, "input", protocol.input);
-    setProperty(target, "output", protocol.output);
+    setProperty(target, "input", {
+        "@id": protocol.input
+    });
+    setProperty(target, "output", {
+        "@id": protocol.output
+    });
     return id;
 };
 
@@ -173,13 +177,16 @@ const createTissueSampleStateDocument = (documents, studiedState) => {
     const target = documents.ids[id];
     setPropertyWithLinks(documents, target, "age", studiedState.ageCategory, createQuantitativeValueDocument);
     setPropertyWithLinks(documents, target, "weight", studiedState.weight, createQuantitativeValueDocument);
+    debugger;
     if (studiedState.subjectGroupState) {
-        const subjectGroupStateId = createDocument(documents, `${OPENMINDS_VOCAB}SubjectGroupState`, studiedState.subjectGroupState);
-        const protocolExecution = {
-            input: subjectGroupStateId,
-            output: id
-        };
-        createProtocolExecutionDocument(documents, protocolExecution);
+        const subjectGroupStateId = `${EBRAINS_VOCAB}${studiedState.subjectGroupState}`;
+        if (documents.ids[subjectGroupStateId]) {
+            const protocolExecution = {
+                input: subjectGroupStateId,
+                output: id
+            };
+            createProtocolExecutionDocument(documents, protocolExecution);
+        }
     }
     return id;
 };
@@ -190,12 +197,15 @@ const createTissueSampleCollectionStateDocument = (documents, studiedState) => {
     setPropertyWithLinks(documents, target, "age", studiedState.ageCategory, createQuantitativeValueDocument);
     setPropertyWithLinks(documents, target, "weight", studiedState.weight, createQuantitativeValueDocument);
     if (studiedState.subjectGroupState) {
-        const subjectGroupStateId = createDocument(documents, `${OPENMINDS_VOCAB}SubjectGroupState`, studiedState.subjectGroupState);
-        const protocolExecution = {
-            input: subjectGroupStateId,
-            output: id
-        };
-        createProtocolExecutionDocument(documents, protocolExecution);
+        const subjectGroupStateId = `${EBRAINS_VOCAB}${studiedState.subjectGroupState}`;
+        if (documents.ids[subjectGroupStateId]) {
+            const subjectGroupStateId = createDocument(documents, `${OPENMINDS_VOCAB}SubjectGroupState`, studiedState.subjectGroupState);
+            const protocolExecution = {
+                input: subjectGroupStateId,
+                output: id
+            };
+            createProtocolExecutionDocument(documents, protocolExecution);
+        }
     }
     return id;
 };

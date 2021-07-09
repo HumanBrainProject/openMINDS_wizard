@@ -127,12 +127,6 @@ export const getArtificialTissueSampleCollectionsSchema = dataset => {
 export const getTissueSampleCollectionsSchema = (dataset, subjects) => {
   const subjectEnumList = getSubjectEnumList(subjects);
   const schema = getArtificialTissueSampleCollectionsSchema(dataset);
-  schema.properties.studiedStates.items.properties.subjectGroupState = {
-    type: "string",
-    title: "Subject state",
-    enum: subjectEnumList.map(e => e.id),
-    enumNames: subjectEnumList.map(e => e.name)
-  };
   return schema;
 };
 
