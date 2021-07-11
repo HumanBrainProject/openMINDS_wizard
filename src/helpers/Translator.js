@@ -86,35 +86,38 @@ const createProtocolExecutionDocument = (documents, protocol) => {
     return id;
 };
 
-const createQuantitativeValueDocument= (documents, quantitativeValue) => {
-    const id = createDocument(documents, `${OPENMINDS_VOCAB}QuantitativeValue`);
-    const target = documents.ids[id];
-    setProperty(target, "value", quantitativeValue.value);
-    setPropertyWithLinks(target, "unit", quantitativeValue.unit);
-    return id;
+const createQuantitativeValueEmbededDocument = quantitativeValue => {
+  const embeded = {
+    "@type": [
+      `${OPENMINDS_VOCAB}QuantitativeValue`
+    ]
+  };
+  setProperty(embeded, "value", quantitativeValue.value);
+  setPropertyWithLinks(embeded, "unit", quantitativeValue.unit);
+  return embeded;
 };
 
 const createSubjectStateDocument = (documents, studiedState) => {
     const id = createDocument(documents, `${OPENMINDS_VOCAB}SubjectState`);
     const target = documents.ids[id];
-    setPropertyWithLinksCreation(documents, target, "age", studiedState.ageCategory, createQuantitativeValueDocument);
-    setPropertyWithLinksCreation(documents, target, "weight", studiedState.weight, createQuantitativeValueDocument);
+    setProperty(target, "age", createQuantitativeValueEmbededDocument(studiedState.ageCategory));
+    setProperty(target, "weight", createQuantitativeValueEmbededDocument(studiedState.weight));
     return id;
 };
 
 const createSubjectGroupStateDocument = (documents, studiedState) => {
     const id = createDocument(documents, `${OPENMINDS_VOCAB}SubjectGroupState`);
     const target = documents.ids[id];
-    setPropertyWithLinksCreation(documents, target, "age", studiedState.ageCategory, createQuantitativeValueDocument);
-    setPropertyWithLinksCreation(documents, target, "weight", studiedState.weight, createQuantitativeValueDocument);
+    setProperty(target, "age", createQuantitativeValueEmbededDocument(studiedState.ageCategory));
+    setProperty(target, "weight", createQuantitativeValueEmbededDocument(studiedState.weight));
     return id;
 };
 
 const createTissueSampleStateDocument = (documents, studiedState) => {
     const id = createDocument(documents, `${OPENMINDS_VOCAB}TissueSampleState`);
     const target = documents.ids[id];
-    setPropertyWithLinksCreation(documents, target, "age", studiedState.ageCategory, createQuantitativeValueDocument);
-    setPropertyWithLinksCreation(documents, target, "weight", studiedState.weight, createQuantitativeValueDocument);
+    setProperty(target, "age", createQuantitativeValueEmbededDocument(studiedState.ageCategory));
+    setProperty(target, "weight", createQuantitativeValueEmbededDocument(studiedState.weight));
     if (studiedState.subjectGroupState) {
         const subjectGroupStateId = `${EBRAINS_VOCAB}${studiedState.subjectGroupState}`;
         if (documents.ids[subjectGroupStateId]) {
@@ -131,8 +134,8 @@ const createTissueSampleStateDocument = (documents, studiedState) => {
 const createTissueSampleCollectionStateDocument = (documents, studiedState) => {
     const id = createDocument(documents, `${OPENMINDS_VOCAB}TissueSampleCollectionState`);
     const target = documents.ids[id];
-    setPropertyWithLinksCreation(documents, target, "age", studiedState.ageCategory, createQuantitativeValueDocument);
-    setPropertyWithLinksCreation(documents, target, "weight", studiedState.weight, createQuantitativeValueDocument);
+    setProperty(target, "age", createQuantitativeValueEmbededDocument(studiedState.ageCategory));
+    setProperty(target, "weight", createQuantitativeValueEmbededDocument(studiedState.weight));
     if (studiedState.subjectGroupState) {
         const subjectGroupStateId = `${EBRAINS_VOCAB}${studiedState.subjectGroupState}`;
         if (documents.ids[subjectGroupStateId]) {
