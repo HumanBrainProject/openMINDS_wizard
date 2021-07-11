@@ -33,7 +33,6 @@ import {
   getSubjectGroupsSchema,
   getSubjectsSchema,
   getTissueSamplesSchema,
-  getArtificialTissueSamplesSchema,
   getTissueSampleCollectionsSchema,
   generateItemsFromTemplate
 } from '../helpers/Wizard';
@@ -212,8 +211,7 @@ class Wizard extends React.Component {
         tissueSamples: newTissueSamples
       });
     }
-    const studyTopic = getStudyTopic(dataset);
-    const tissueSamplesSchema = (studyTopic === STUDY_TOPIC_ARTIFICIAL_TISSUE_SAMPLE_VALUE)?getArtificialTissueSamplesSchema():getTissueSamplesSchema(this.state.subjectGroups);
+    const tissueSamplesSchema = getTissueSamplesSchema();
     this.setState({
       schema: tissueSamplesSchema,
       wizardStep: WIZARD_STEP_TISSUE_SAMPLES
@@ -267,8 +265,7 @@ class Wizard extends React.Component {
   };
 
   goBackToTissueSamplesWizard = () => {
-    const studyTopic = getStudyTopic(this.state.dataset);
-    const tissueSamplesSchema = (studyTopic === STUDY_TOPIC_ARTIFICIAL_TISSUE_SAMPLE_VALUE)?getArtificialTissueSamplesSchema():getTissueSamplesSchema(this.state.subjectGroups)
+    const tissueSamplesSchema = getTissueSamplesSchema()
     this.setState({
       schema: tissueSamplesSchema,
       result: null,

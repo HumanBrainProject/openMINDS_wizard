@@ -1,5 +1,3 @@
-import _  from "lodash-uuid";
-
 import * as datasetSchemaModule from '../schema/datasetSchema.json';
 import * as subjectSchemaModule from '../schema/subjectSchema.json';
 import * as tissueSampleSchemaModule from '../schema/tissueSampleSchema.json'; 
@@ -30,6 +28,11 @@ const controlledTerms = {
 	strain: strainModule.default,
 	tissueSampleType: tissueSampleTypeModule.default,
   unitOfMeasurement: unitOfMeasurementModule.default
+};
+
+const getUnitOfMeasurementLabel = identifier => {
+  const item = controlledTerms.unitOfMeasurement.find(e => e.identifier === identifier);
+  return item?item.name:"";
 };
 
 const populateSchmaWithControlledTerms = schema => {
@@ -63,12 +66,11 @@ const populateSchmaWithControlledTerms = schema => {
   return schema;
 };
 
+export const getSubjectStateEnum = (subject, subjectState) => `${subject.lookupLabel} [${subjectState.age.value}${getUnitOfMeasurementLabel(subjectState.age.unit)} - ${subjectState.weight.value}${getUnitOfMeasurementLabel(subjectState.weight.unit)}]`;
+
 const getSubjectEnumList =  subjects => {
   return subjects.reduce((acc, subject) => subject.studiedStates.reduce((acc2, state) => {
-    acc2.push({
-      id: _.uuid(),
-      name: `${subject.lookupLabel} [${state.ageCategory.value}${state.ageCategory.unit} - ${state.weight.value}${state.weight.unit}]`
-    });
+    acc2.push(getSubjectStateEnum(subject, state));
     return acc2;
   }, acc), []);
 };
@@ -106,8 +108,7 @@ export const getTissueSampleTemplateSchema = subjects => {
   schema.properties.studiedStates.items.properties.subjectGroupState = {
     type: "string",
     title: "Subject state",
-    enum: subjectEnumList.map(e => e.id),
-    enumNames: subjectEnumList.map(e => e.name)
+    enum: subjectEnumList
   };
   return schema;
 };
@@ -147,7 +148,7 @@ export const getSubjectsSchema = () => {
   };
 };
 
-export const getArtificialTissueSamplesSchema = () => {
+export const getTissueSamplesSchema = () => {
   const items = JSON.parse(JSON.stringify(tissueSampleSchema));
   return {
     title: "Tissue samples",
@@ -155,18 +156,6 @@ export const getArtificialTissueSamplesSchema = () => {
     minItems: 1,
     items: items
   };
-};
-
-export const getTissueSamplesSchema = subjects => {
-  const subjectEnumList = getSubjectEnumList(subjects);
-  const schema = getArtificialTissueSamplesSchema();
-  schema.items.properties.subject = {
-    type: "string",
-    title: "Subject",
-    enum: subjectEnumList.map(e => e.id),
-    enumNames: subjectEnumList.map(e => e.name)
-  };
-  return schema;
 };
 
 export const getTissueSampleCollectionsSchema = dataset => {
