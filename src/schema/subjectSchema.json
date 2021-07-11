@@ -8,63 +8,22 @@
     "species": {
       "type": "string",
       "title": "Species",
-      "controlledTerm": "species",
-      "enum": [
-        "Mustela putorius furo",
-        "Monodelphis domestica",
-        "Macaca fascicularis",
-        "Berghia stephanieae",
-        "Mustela putorius",
-        "Chlorocebus aethiops sabaeus",
-        "Macaca fuscata",
-        "Rattus norvegicus",
-        "Danio rerio",
-        "Macaca mulatta",
-        "Callithrix jacchus",
-        "Homo sapiens",
-        "Mus musculus",
-        "Chlorocebus pygerythrus"
-      ]
+      "controlledTerm": "species"
     },
     "strains": {
       "type": "string",
       "title": "Strains",
-      "controlledTerm": "strain",
-      "enum": [
-        "Crl:WI",
-        "C57BL/6J-Tg(Thy1-GCaMP6f)GP5.17Dkim/J",
-        "B6.129-Nlgn3<sup>tm4Sud</sup>/J",
-        "B6.Cg-Tg(Camk2a-tTA)1Mmay/DboJ",
-        "C57BL/6J",
-        "Crl:LIS",
-        "C57BL/6",
-        "Crl:WI(Han)",
-        "LEW/Ztm",
-        "SD",
-        "SWR",
-        "B6;129-Tg(Drd1-cre)120Mxu/Mmjax",
-        "Crl:LE",
-        "LEW/Crl",
-        "129/Sv"
-      ]
+      "controlledTerm": "strain"
     },
     "biologicalSex": {
       "type": "string",
       "title": "Biological sex",
-      "controlledTerm": "biologicalSex",
-      "enum": [
-        "female",
-        "male",
-        "hermaphrodite"
-      ]
+      "controlledTerm": "biologicalSex"
     },
     "phenotype": {
       "type": "string",
       "title": "Phenotype",
-      "controlledTerm": "phenotype",
-      "enum": [
-        "wildtype"
-      ]
+      "controlledTerm": "phenotype"
     },
     "studiedStates": {
       "type": "array",
@@ -84,32 +43,7 @@
               "unit": {
                 "type": "string",
                 "title": "Unit",
-                "controlledTerm": "unitOfMeasurement",
-                "enum": [
-                  "hour", 
-                  "week", 
-                  "liter", 
-                  "terabyte", 
-                  "kilobyte", 
-                  "millimeter", 
-                  "embryonic day", 
-                  "byte", 
-                  "bit", 
-                  "minute", 
-                  "year", 
-                  "millisecond", 
-                  "second", 
-                  "micrometer", 
-                  "centimeter", 
-                  "day", 
-                  "month", 
-                  "milliliter", 
-                  "gigabyte", 
-                  "meter", 
-                  "kilogram", 
-                  "megabyte", 
-                  "gram"
-                ]
+                "controlledTerm": "unitOfMeasurement"
               }
             }
           },
@@ -124,32 +58,7 @@
               "unit": {
                 "type": "string",
                 "title": "Unit",
-                "controlledTerm": "unitOfMeasurement",
-                "enum": [
-                  "hour", 
-                  "week", 
-                  "liter", 
-                  "terabyte", 
-                  "kilobyte", 
-                  "millimeter", 
-                  "embryonic day", 
-                  "byte", 
-                  "bit", 
-                  "minute", 
-                  "year", 
-                  "millisecond", 
-                  "second", 
-                  "micrometer", 
-                  "centimeter", 
-                  "day", 
-                  "month", 
-                  "milliliter", 
-                  "gigabyte", 
-                  "meter", 
-                  "kilogram", 
-                  "megabyte", 
-                  "gram"
-                ]
+                "controlledTerm": "unitOfMeasurement"
               }
             }
           }

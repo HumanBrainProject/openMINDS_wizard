@@ -106,13 +106,7 @@
     "accessibility": {
       "type": "string",
       "title": "Accessibility",
-      "controlledTerm": "productAccessibility",
-      "enum": [
-        "controlled access",
-        "free access",
-        "restricted access",
-        "under embargo"
-      ]
+      "controlledTerm": "productAccessibility"
     },
     "repositoryUrl": {
       "type": "string",
@@ -121,47 +115,12 @@
     "type": {
       "type": "string",
       "title": "Type",
-      "controlledTerm": "semanticDataType",
-      "enum": [
-        "derived data",
-        "experimental data",
-        "raw data",
-        "simulated data"
-      ]
+      "controlledTerm": "semanticDataType"
     },
     "license": {
       "type": "string",
       "title": "License",
-      "controlledTerm": "license",
-      "enum": [
-        "AGPL-3.0-only",
-        "Apache-2.0",
-        "BSD-2-Clause",
-        "BSD-3-Clause",
-        "BSD-4-Clause",
-        "CC BY 4.0",
-        "CC BY-NC 4.0",
-        "CC BY-NC-ND 4.0",
-        "CC BY-NC-SA 4.0",
-        "CC BY-ND 4.0",
-        "CC BY-SA 4.0",
-        "CC0 1.0",
-        "CECILL-2.1",
-        "EUPL-1.2",
-        "GPL-1.0-only",
-        "GPL-1.0-or-later",
-        "GPL-2.0-only",
-        "GPL-2.0-or-later",
-        "GPL-3.0-only",
-        "GPL-3.0-or-later",
-        "LGPL-2.0-only",
-        "LGPL-2.1-only",
-        "LGPL-2.1-or-later",
-        "LGPL-3.0-only",
-        "LGPL-3.0-or-later",
-        "MIT",
-        "MPL-2.0"
-      ]
+      "controlledTerm": "license"
     },
     "fullDocumentation": {
       "type": "string",
@@ -198,56 +157,12 @@
     "ethicsAssessment": {
       "type": "string",
       "title": "Ethics assessment",
-      "controlledTerm": "ethicsAssessment",
-      "enum": [
-        "EU compliant, non sensitive",
-        "EU compliant, sensitive",
-        "not required"
-      ]
+      "controlledTerm": "ethicsAssessment"
     },
     "experimentalApproach": {
       "type": "string",
       "title": "Experimental approach",
-      "controlledTerm": "experimentalApproach",
-      "enum": [
-        "anatomy",
-        "behavior",
-        "cell biology",
-        "cell morphology",
-        "cell population characterization",
-        "cell population imaging",
-        "cell population manipulation",
-        "chemogenetics",
-        "clinical research",
-        "computational modeling",
-        "developmental biology",
-        "ecology",
-        "electrophysiology",
-        "epidemiology",
-        "epigenomics",
-        "ethology",
-        "evolutionary biology",
-        "expression",
-        "expression characterization",
-        "genetics",
-        "genomics",
-        "histology",
-        "informatics",
-        "metabolomics",
-        "microscopy",
-        "morphology",
-        "multimodal research",
-        "multiomics",
-        "neural connectivity",
-        "neuroimaging",
-        "omics",
-        "optogenetics",
-        "physiology",
-        "proteomics",
-        "radiology",
-        "spatial transcriptomics",
-        "transcriptomics"
-      ]
+      "controlledTerm": "experimentalApproach"
     },
     "funding": {
       "type": "string",

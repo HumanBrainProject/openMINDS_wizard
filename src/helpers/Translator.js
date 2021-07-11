@@ -39,29 +39,27 @@ const createDocuments = (documents, source, documentGenerator) => {
 };
 
 const setProperty = (object, name, value) => {
-    if (value !== null && value !== undefined && value !== "" && !(Array.isArray(value) && !value.length)) {
+    if (Array.isArray(value)) {
+        if (value.length) {
+            object[`${OPENMINDS_VOCAB}${name}`] = value;
+        }
+    } else if (value !== null && value !== undefined && value !== "") {
         object[`${OPENMINDS_VOCAB}${name}`] = value;
     }
 };
 
-const setPropertyWithLinks = (documents, object, name, source, documentGenerator) => {
-    if (typeof object !== "object") {
-        return;
-    }
-    const ids = createDocuments(documents, source, documentGenerator);
-    if (ids.length) {
-        const values = ids.map(id => ({
-            "@id": id
-        }));
+const setPropertyWithLinks = (object, name, value) => {
+    if (Array.isArray(value)) {
+        const values = value.map(id => ({"@id": id}));
         setProperty(object, name, values);
+    } else if (value !== null && value !== undefined && value !== "") {
+        setProperty(object, name, {"@id": value})
     }
 };
 
-const createAccessibilityDocument = (documents, accessibility) => {
-    const id = createDocument(documents, `${OPENMINDS_VOCAB}Accessibility`, accessibility);
-    const target = documents.ids[id];
-    setProperty(target, "name", accessibility);
-    return id;
+const setPropertyWithLinksCreation = (documents, object, name, source, documentGenerator) => {
+    const ids = createDocuments(documents, source, documentGenerator);
+    setPropertyWithLinks(documents, object, name, ids);
 };
 
 const createCopyrightDocument = (documents, copyright) => {
@@ -80,71 +78,11 @@ const createPersonDocument = (documents, author) => {
     return id;
 };
 
-const createEthicsAssessmentDocument = (documents, ethicsAssessment) => {
-  const id = createDocument(documents, `${OPENMINDS_VOCAB}EthicsAssessment`, ethicsAssessment);
-  const target = documents.ids[id];
-  setProperty(target, "name", ethicsAssessment);
-  return id;
-};
-
-const createSpeciesDocument = (documents, species) => {
-    const id = createDocument(documents, `${OPENMINDS_VOCAB}Species`, species);
-    const target = documents.ids[id];
-    setProperty(target, "name", species);
-    return id;
-};
-
-const createStrainDocument = (documents, strain) => {
-    const id = createDocument(documents, `${OPENMINDS_VOCAB}Strain`, strain);
-    const target = documents.ids[id];
-    setProperty(target, "name", strain);
-    return id;
-};
-
-const createBiologicalSexDocument = (documents, biologicalSex) => {
-    const id = createDocument(documents, `${OPENMINDS_VOCAB}BiologicalSex`, biologicalSex);
-    const target = documents.ids[id];
-    setProperty(target, "name", biologicalSex);
-    return id;
-};
-
 const createProtocolExecutionDocument = (documents, protocol) => {
     const id = createDocument(documents, `${OPENMINDS_VOCAB}ProtocolExecution`, `${protocol.input}-${protocol.output}`);
     const target = documents.ids[id];
-    setProperty(target, "input", {
-        "@id": protocol.input
-    });
-    setProperty(target, "output", {
-        "@id": protocol.output
-    });
-    return id;
-};
-
-const createPhenotypeDocument = (documents, phenotype) => {
-    const id = createDocument(documents, `${OPENMINDS_VOCAB}Phenotype`, phenotype);
-    const target = documents.ids[id];
-    setProperty(target, "name", phenotype);
-    return id;
-};
-
-const createTypeDocument = (documents, type) => {
-    const id = createDocument(documents, `${OPENMINDS_VOCAB}Type`, type);
-    const target = documents.ids[id];
-    setProperty(target, "name", type);
-    return id;
-};
-
-const createCellTypeDocument = (documents, cellType) => {
-    const id = createDocument(documents, `${OPENMINDS_VOCAB}CellType`, cellType);
-    const target = documents.ids[id];
-    setProperty(target, "name", cellType);
-    return id;
-};
-
-const createUnitDocument = (documents, unit) => {
-    const id = createDocument(documents, `${OPENMINDS_VOCAB}Unit`, unit);
-    const target = documents.ids[id];
-    setProperty(target, "name", unit);
+    setPropertyWithLinks(target, "input", protocol.input);
+    setPropertyWithLinks(target, "output", protocol.output);
     return id;
 };
 
@@ -152,31 +90,31 @@ const createQuantitativeValueDocument= (documents, quantitativeValue) => {
     const id = createDocument(documents, `${OPENMINDS_VOCAB}QuantitativeValue`);
     const target = documents.ids[id];
     setProperty(target, "value", quantitativeValue.value);
-    setPropertyWithLinks(documents, target, "unit", quantitativeValue.unit, createUnitDocument);
+    setPropertyWithLinks(target, "unit", quantitativeValue.unit);
     return id;
 };
 
 const createSubjectStateDocument = (documents, studiedState) => {
     const id = createDocument(documents, `${OPENMINDS_VOCAB}SubjectState`);
     const target = documents.ids[id];
-    setPropertyWithLinks(documents, target, "age", studiedState.ageCategory, createQuantitativeValueDocument);
-    setPropertyWithLinks(documents, target, "weight", studiedState.weight, createQuantitativeValueDocument);
+    setPropertyWithLinksCreation(documents, target, "age", studiedState.ageCategory, createQuantitativeValueDocument);
+    setPropertyWithLinksCreation(documents, target, "weight", studiedState.weight, createQuantitativeValueDocument);
     return id;
 };
 
 const createSubjectGroupStateDocument = (documents, studiedState) => {
     const id = createDocument(documents, `${OPENMINDS_VOCAB}SubjectGroupState`);
     const target = documents.ids[id];
-    setPropertyWithLinks(documents, target, "age", studiedState.ageCategory, createQuantitativeValueDocument);
-    setPropertyWithLinks(documents, target, "weight", studiedState.weight, createQuantitativeValueDocument);
+    setPropertyWithLinksCreation(documents, target, "age", studiedState.ageCategory, createQuantitativeValueDocument);
+    setPropertyWithLinksCreation(documents, target, "weight", studiedState.weight, createQuantitativeValueDocument);
     return id;
 };
 
 const createTissueSampleStateDocument = (documents, studiedState) => {
     const id = createDocument(documents, `${OPENMINDS_VOCAB}TissueSampleState`);
     const target = documents.ids[id];
-    setPropertyWithLinks(documents, target, "age", studiedState.ageCategory, createQuantitativeValueDocument);
-    setPropertyWithLinks(documents, target, "weight", studiedState.weight, createQuantitativeValueDocument);
+    setPropertyWithLinksCreation(documents, target, "age", studiedState.ageCategory, createQuantitativeValueDocument);
+    setPropertyWithLinksCreation(documents, target, "weight", studiedState.weight, createQuantitativeValueDocument);
     if (studiedState.subjectGroupState) {
         const subjectGroupStateId = `${EBRAINS_VOCAB}${studiedState.subjectGroupState}`;
         if (documents.ids[subjectGroupStateId]) {
@@ -193,8 +131,8 @@ const createTissueSampleStateDocument = (documents, studiedState) => {
 const createTissueSampleCollectionStateDocument = (documents, studiedState) => {
     const id = createDocument(documents, `${OPENMINDS_VOCAB}TissueSampleCollectionState`);
     const target = documents.ids[id];
-    setPropertyWithLinks(documents, target, "age", studiedState.ageCategory, createQuantitativeValueDocument);
-    setPropertyWithLinks(documents, target, "weight", studiedState.weight, createQuantitativeValueDocument);
+    setPropertyWithLinksCreation(documents, target, "age", studiedState.ageCategory, createQuantitativeValueDocument);
+    setPropertyWithLinksCreation(documents, target, "weight", studiedState.weight, createQuantitativeValueDocument);
     if (studiedState.subjectGroupState) {
         const subjectGroupStateId = `${EBRAINS_VOCAB}${studiedState.subjectGroupState}`;
         if (documents.ids[subjectGroupStateId]) {
@@ -213,10 +151,10 @@ const createSubjectDocument = (documents, source) => {
     const id = createDocument(documents, `${OPENMINDS_VOCAB}Subject`, source.lookupLabel);
     const target = documents.ids[id];
     setProperty(target, "lookupLabel", source.lookupLabel);
-    setPropertyWithLinks(documents, target, "species", source.species, createSpeciesDocument);
-    setPropertyWithLinks(documents, target, "strain", source.strains, createStrainDocument);
-    setPropertyWithLinks(documents, target, "biologicalSex", source.biologicalSex, createBiologicalSexDocument);
-    setPropertyWithLinks(documents, target, "studiedState", source.studiedStates, createSubjectStateDocument);
+    setPropertyWithLinks(target, "species", source.species);
+    setPropertyWithLinks(target, "strain", source.strains);
+    setPropertyWithLinks(target, "biologicalSex", source.biologicalSex);
+    setPropertyWithLinksCreation(documents, target, "studiedState", source.studiedStates, createSubjectStateDocument);
     return id;
 };
 
@@ -225,11 +163,11 @@ const createSubjectGroupDocument = (documents, source) => {
     const target = documents.ids[id];
     setProperty(target, "lookupLabel", source.lookupLabel);
     setProperty(target, "quantity", source.quantity);
-    setPropertyWithLinks(documents, target, "species", source.species, createSpeciesDocument);
-    setPropertyWithLinks(documents, target, "strain", source.strains, createStrainDocument);
-    setPropertyWithLinks(documents, target, "biologicalSex", source.biologicalSex, createBiologicalSexDocument);
-    setPropertyWithLinks(documents, target, "phenotype", source.phenotype, createPhenotypeDocument);
-    setPropertyWithLinks(documents, target, "studiedState", source.studiedStates, createSubjectGroupStateDocument);
+    setPropertyWithLinks(target, "species", source.species);
+    setPropertyWithLinks(target, "strain", source.strains);
+    setPropertyWithLinks(target, "biologicalSex", source.biologicalSex);
+    setPropertyWithLinks(target, "phenotype", source.phenotype);
+    setPropertyWithLinksCreation(documents, target, "studiedState", source.studiedStates, createSubjectGroupStateDocument);
     return id;
 };
 
@@ -237,12 +175,12 @@ const createTissueSampleDocument = (documents, source) => {
     const id = createDocument(documents, `${OPENMINDS_VOCAB}TissueSample`, source.lookupLabel);
     const target = documents.ids[id];
     setProperty(target, "lookupLabel", source.lookupLabel);
-    setPropertyWithLinks(documents, target, "type", source.typesOfTheTissue, createTypeDocument);
-    setPropertyWithLinks(documents, target, "species", source.species, createSpeciesDocument);
-    setPropertyWithLinks(documents, target, "strain", source.strains, createStrainDocument);
-    setPropertyWithLinks(documents, target, "biologicalSex", source.biologicalSex, createBiologicalSexDocument);
-    setPropertyWithLinks(documents, target, "origin", source.origin, createCellTypeDocument);
-    setPropertyWithLinks(documents, target, "studiedState", source.studiedStates, createTissueSampleStateDocument);
+    setPropertyWithLinks(target, "type", source.typesOfTheTissue);
+    setPropertyWithLinks(target, "species", source.species);
+    setPropertyWithLinks(target, "strain", source.strains);
+    setPropertyWithLinks(target, "biologicalSex", source.biologicalSex);
+    setPropertyWithLinks(target, "origin", source.origin);
+    setPropertyWithLinksCreation(documents, target, "studiedState", source.studiedStates, createTissueSampleStateDocument);
     return id;
 };
 
@@ -251,12 +189,12 @@ const createTissueSampleCollectionDocument = (documents, source) => {
     const target = documents.ids[id];
     setProperty(target, "lookupLabel", source.lookupLabel);
     setProperty(target, "quantity", source.quantity);
-    setPropertyWithLinks(documents, target, "type", source.typesOfTheTissue, createTypeDocument);
-    setPropertyWithLinks(documents, target, "species", source.species, createSpeciesDocument);
-    setPropertyWithLinks(documents, target, "strain", source.strains, createStrainDocument);
-    setPropertyWithLinks(documents, target, "biologicalSex", source.biologicalSex, createBiologicalSexDocument);
-    setPropertyWithLinks(documents, target, "origin", source.origin, createCellTypeDocument);
-    setPropertyWithLinks(documents, target, "studiedState", source.studiedStates, createTissueSampleCollectionStateDocument);
+    setPropertyWithLinks(target, "type", source.typesOfTheTissue);
+    setPropertyWithLinks(target, "species", source.species);
+    setPropertyWithLinks(target, "strain", source.strains);
+    setPropertyWithLinks(target, "biologicalSex", source.biologicalSex);
+    setPropertyWithLinks(target, "origin", source.origin);
+    setPropertyWithLinksCreation(documents, target, "studiedState", source.studiedStates, createTissueSampleCollectionStateDocument);
     return id;
 };
 
@@ -264,13 +202,6 @@ const createDigitalIdentifierDocument = (documents, doi) => {
   const id = createDocument(documents, `${OPENMINDS_VOCAB}DigitalIdentifier`, doi);
   const target = documents.ids[id];
   setProperty(target, "identifier", doi);
-  return id;
-};
-
-const createExperimentalApproachDocument = (documents, experimentalApproach) => {
-  const id = createDocument(documents, `${OPENMINDS_VOCAB}ExperimentalApproach`, experimentalApproach);
-  const target = documents.ids[id];
-  setProperty(target, "name", experimentalApproach);
   return id;
 };
 
@@ -287,13 +218,6 @@ const createFundingDocument = (documents, funding) => {
   setProperty(target, "awardTitle", funding);
   return id;  
 }
-
-const createLicenseDocument = (documents, license) => {
-  const id = createDocument(documents, `${OPENMINDS_VOCAB}License`, license);
-  const target = documents.ids[id];
-  setProperty(target, "shortName", license);
-  return id;
-};
 
 const createRepositoryDocument = (documents, repository) => {
   const id = createDocument(documents, `${OPENMINDS_VOCAB}FileRepository`, repository);
@@ -319,8 +243,8 @@ const createContributionTypeDocument = (documents, contributionType) => {
 const createOtherContributionDocument = (documents, otherContribution) => {
   const id = createDocument(documents, `${OPENMINDS_VOCAB}OtherContribution`);
   const target = documents.ids[id];
-  setPropertyWithLinks(documents, target, "contributionType", otherContribution.contributionType, createContributionTypeDocument);
-  setPropertyWithLinks(documents, target, "contributor", otherContribution.contributor, createPersonDocument);
+  setPropertyWithLinksCreation(documents, target, "contributionType", otherContribution.contributionType, createContributionTypeDocument);
+  setPropertyWithLinksCreation(documents, target, "contributor", otherContribution.contributor, createPersonDocument);
   return id;
 };
 
@@ -338,7 +262,7 @@ const createDatasetDocument = (documents, source) => {
     const datasetId = createDocument(documents, `${OPENMINDS_VOCAB}DatasetVersion`, source.name);
     const dataset = documents.ids[datasetId];
 
-    setPropertyWithLinks(documents, dataset, "accessibility", [source.accessibility], createAccessibilityDocument);
+    setPropertyWithLinks(dataset, "accessibility", [source.accessibility]);
     setProperty(dataset, "description", source.description);
     setProperty(dataset, "name", source.name);
     setProperty(dataset, "keyword", source.keyword);
@@ -349,24 +273,24 @@ const createDatasetDocument = (documents, source) => {
     
     if(source.doi) {
       if(source.doi.doi === "No") {
-        setPropertyWithLinks(documents, dataset, "author", source.doi.authors, createPersonDocument);
+        setPropertyWithLinksCreation(documents, dataset, "author", source.doi.authors, createPersonDocument);
       }
       if(source.doi.doi === "Yes") {
-        setPropertyWithLinks(documents, dataset, "digitalIdentifier", source.doi.value, createDigitalIdentifierDocument);
+        setPropertyWithLinksCreation(documents, dataset, "digitalIdentifier", source.doi.value, createDigitalIdentifierDocument);
       }
     }
-    setPropertyWithLinks(documents, dataset, "custodian", source.custodian, createPersonDocument);
-    setPropertyWithLinks(documents, dataset, "copyright", source.copyrightHolderAndYear, createCopyrightDocument);
-    setPropertyWithLinks(documents, dataset, "ethicsAssessment", source.ethicsAssessment, createEthicsAssessmentDocument);
-    setPropertyWithLinks(documents, dataset, "modality", source.experimentalApproach, createExperimentalApproachDocument);
-    setPropertyWithLinks(documents, dataset, "fullDocumentation", source.fullDocumentation, createFullDocumentationDocument);
-    setPropertyWithLinks(documents, dataset, "funding", source.funding, createFundingDocument);
-    setPropertyWithLinks(documents, dataset, "license", source.license, createLicenseDocument);
-    setPropertyWithLinks(documents, dataset, "repository", source.repositoryUrl, createRepositoryDocument);
-    setPropertyWithLinks(documents, dataset, "relatedPublication", source.relatedPublication, createRelatedPublicationDocument);
-    setPropertyWithLinks(documents, dataset, "type", source.type, createTypeDocument);
-    setPropertyWithLinks(documents, dataset, "otherContribution", source.otherContribution, createOtherContributionDocument);
-    setPropertyWithLinks(documents, dataset, "inputData", source.inputData, createInputDataDocument);
+    setPropertyWithLinksCreation(documents, dataset, "custodian", source.custodian, createPersonDocument);
+    setPropertyWithLinksCreation(documents, dataset, "copyright", source.copyrightHolderAndYear, createCopyrightDocument);
+    setPropertyWithLinks(dataset, "ethicsAssessment", source.ethicsAssessment);
+    setPropertyWithLinks(dataset, "experimentalApproach", source.experimentalApproach);
+    setPropertyWithLinksCreation(documents, dataset, "fullDocumentation", source.fullDocumentation, createFullDocumentationDocument);
+    setPropertyWithLinksCreation(documents, dataset, "funding", source.funding, createFundingDocument);
+    setPropertyWithLinks(dataset, "license", source.license);
+    setPropertyWithLinksCreation(documents, dataset, "repository", source.repositoryUrl, createRepositoryDocument);
+    setPropertyWithLinksCreation(documents, dataset, "relatedPublication", source.relatedPublication, createRelatedPublicationDocument);
+    setPropertyWithLinks(dataset, "type", source.type);
+    setPropertyWithLinksCreation(documents, dataset, "otherContribution", source.otherContribution, createOtherContributionDocument);
+    setPropertyWithLinksCreation(documents, dataset, "inputData", source.inputData, createInputDataDocument);
 
     return datasetId;
 };
@@ -374,7 +298,7 @@ const createDatasetDocument = (documents, source) => {
 const generateDocuments = (documents, dataset, studiedSpecimen, studiedSpecimenDocumentGenerator) =>  {
     const datasetDocId = createDatasetDocument(documents, dataset);
     const datasetDoc = documents.ids[datasetDocId];
-    setPropertyWithLinks(documents, datasetDoc, "studiedSpecimen", studiedSpecimen, studiedSpecimenDocumentGenerator);
+    setPropertyWithLinksCreation(documents, datasetDoc, "studiedSpecimen", studiedSpecimen, studiedSpecimenDocumentGenerator);
 };
     
 export const generateDocumentsFromDataset = dataset => {

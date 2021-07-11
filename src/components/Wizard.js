@@ -9,8 +9,6 @@ import TissueSampleTemplateWizard from './Wizard/TissueSampleTemplateWizard';
 import TissueSamplesWizard from './Wizard/TissueSamplesWizard';
 import Result from './Result';
 
-import * as datasetSchemaModule from '../schema/datasetSchema.json';
-
 import { 
   generateDocumentsFromDataset, 
   generateDocumentsFromDatasetAndSubjectGroups, 
@@ -22,6 +20,7 @@ import {
 }  from '../helpers/Translator';
 
 import {
+  datasetSchema,
   areSubjectsGrouped,
   areTissueSamplesGrouped,
   getNumberOfSubjects,
@@ -38,8 +37,6 @@ import {
   getTissueSampleCollectionsSchema,
   generateItemsFromTemplate
 } from '../helpers/Wizard';
-
-const datasetSchema = datasetSchemaModule.default;
 
 const STUDY_TOPIC_SUBJECT_VALUE = "Subject";
 const STUDY_TOPIC_TISSUE_SAMPLE_VALUE = "Tissue sample";
