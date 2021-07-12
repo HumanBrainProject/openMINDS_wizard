@@ -74,14 +74,6 @@
       "title": "",
       "$ref": "#/definitions/doi"
     },
-    "homepage": {
-      "type": "string",
-      "title": "Homepage"
-    },
-    "versionNumber": {
-      "type": "string",
-      "title": "Version number"
-    },
     "custodian": {
       "type": "array",
       "title": "Custodians",
@@ -98,10 +90,6 @@
           }
         }
       }
-    },
-    "otherContributions": {
-      "type": "string",
-      "title": "Other contributions"
     },
     "accessibility": {
       "type": "string",
@@ -121,38 +109,13 @@
       "type": "string",
       "title": "License",
       "controlledTerm": "license"
-    },
-    "fullDocumentation": {
-      "type": "string",
-      "title": "Full documentation"
-    },
+    },  
     "keyword": {
       "type": "array",
       "title": "Keyword",
       "items": {
         "type": "string"
       }
-    },
-    "copyright": {
-      "type": "object",
-      "title": "Copyright",
-      "properties": {
-        "holder": {
-          "type": "string",
-          "title": "Holder"
-        },
-        "givenName": {
-          "type": "number",
-          "title": "Year",
-          "minimum": 1000,
-          "maximum": 10000
-        }
-      }
-    },
-    "releasedDate": {
-      "type": "string",
-      "format": "date",
-      "title": "Released date"
     },
     "ethicsAssessment": {
       "type": "string",
@@ -163,28 +126,6 @@
       "type": "string",
       "title": "Experimental approach",
       "controlledTerm": "experimentalApproach"
-    },
-    "funding": {
-      "type": "string",
-      "title": "Funding"
-    },
-    "relatedPublication": {
-      "type": "array",
-      "title": "Related publications",
-      "items": {
-        "type": "string"
-      }
-    },
-    "supportChannel": {
-      "type": "array",
-      "title": "Support channel",
-      "items": {
-        "type": "string"
-      }
-    },
-    "inputData": {
-      "type": "string",
-      "title": "Input data"
     },
     "studyTopic": {
       "type": "string",
