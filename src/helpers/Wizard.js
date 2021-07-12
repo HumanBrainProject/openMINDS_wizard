@@ -1,4 +1,3 @@
-import * as datasetSchemaModule from '../schemas/datasetSchema.json';
 import * as generalSchemaModule from '../schemas/generalSchema.json';
 import * as experimentSchemaModule from '../schemas/experimentSchema.json';
 import * as subjectSchemaModule from '../schemas/subjectSchema.json';
@@ -77,7 +76,6 @@ const getSubjectEnumList =  subjects => {
   }, acc), []);
 };
 
-export const datasetSchema = populateSchemaWithControlledTerms(datasetSchemaModule.default);
 export const generalSchema = populateSchemaWithControlledTerms(generalSchemaModule.default);
 export const experimentSchema = populateSchemaWithControlledTerms(experimentSchemaModule.default);
 export const subjectSchema = populateSchemaWithControlledTerms(subjectSchemaModule.default);

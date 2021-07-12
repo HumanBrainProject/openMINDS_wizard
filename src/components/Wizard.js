@@ -4,7 +4,6 @@ import GeneralWizard from './Wizard/GeneralWizard';
 import ReferencesAndContributionsWizard from './Wizard/ReferencesAndContributionsWizard';
 import ResourcesAndLegalWizard from './Wizard/ResourcesAndLegalWizard';
 import ExperimentWizard from './Wizard/ExperimentWizard.js';
-import DatasetWizard from './Wizard/DatasetWizard';
 import SubjectGroupWizard from './Wizard/SubjectGroupWizard';
 import SubjectTemplateWizard from './Wizard/SubjectTemplateWizard';
 import SubjectsWizard from './Wizard/SubjectsWizard';
@@ -24,7 +23,6 @@ import {
 }  from '../helpers/Translator';
 
 import {
-  datasetSchema,
   generalSchema,
   experimentSchema,
   areSubjectsGrouped,
@@ -53,7 +51,6 @@ const STUDY_TOPIC_SUBJECT_VALUE = "Subject";
 const STUDY_TOPIC_TISSUE_SAMPLE_VALUE = "Tissue sample";
 const STUDY_TOPIC_ARTIFICIAL_TISSUE_SAMPLE_VALUE = "Artificial tissue sample";
 
-const WIZARD_STEP_DATASET = "WIZARD_STEP_DATASET";
 const WIZARD_STEP_GENERAL = "WIZARD_STEP_GENERAL";
 const WIZARD_STEP_REFERENCES_AND_CONTRIBUTIONS = "WIZARD_STEP_REFERENCES_AND_CONTRIBUTIONS";
 const WIZARD_STEP_RESOURCES_AND_LEGAL = "WIZARD_STEP_RESOURCES_AND_LEGAL";
@@ -161,53 +158,6 @@ class Wizard extends React.Component {
     }
   }
 
-  // handleDatasetSubmit = data => {
-  //   const studyTopic = getStudyTopic(data);
-  //   this.setState({dataset: data});
-    
-  //   if (studyTopic === STUDY_TOPIC_SUBJECT_VALUE) {
-  //     if (areSubjectsGrouped(data)) {
-  //       const subjectGroupsSchema = getSubjectGroupsSchema(data);
-  //       this.setState({
-  //         schema: subjectGroupsSchema,
-  //         wizardStep: WIZARD_STEP_SUBJECT_GROUP
-  //       });
-  //     } else {
-  //       const subjectTemplateSchema = getSubjectTemplateSchema();
-  //       this.setState({
-  //         schema: subjectTemplateSchema,
-  //         wizardStep: WIZARD_STEP_SUBJECT_TEMPLATE
-  //       });
-  //     }
-  //   } else if (studyTopic === STUDY_TOPIC_TISSUE_SAMPLE_VALUE) {
-  //     const subjectGroupsSchema = getSubjectGroupsSchemaForTissueSample();
-  //     this.setState({
-  //       schema: subjectGroupsSchema,
-  //       wizardStep: WIZARD_STEP_SUBJECT_GROUP
-  //     });
-  //   } else if (studyTopic === STUDY_TOPIC_ARTIFICIAL_TISSUE_SAMPLE_VALUE) {
-  //     if (areTissueSamplesGrouped(data)) {
-  //       const tissueSampleCollectionsSchema = getTissueSampleCollectionsSchema(data);
-  //       this.setState({
-  //         schema: tissueSampleCollectionsSchema,
-  //         wizardStep: WIZARD_STEP_TISSUE_SAMPLE_GROUP
-  //       });
-  //     } else {
-  //       const tissueSampleTemplateSchema = getArtificialTissueSampleTemplateSchema();
-  //       this.setState({
-  //         schema: tissueSampleTemplateSchema,
-  //         wizardStep: WIZARD_STEP_TISSUE_SAMPLE_TEMPLATE
-  //       });
-  //     }
-  //   } else {
-  //     const res = generateDocumentsFromDataset(data);
-  //     this.setState({
-  //       result: res,
-  //       wizardStep: WIZARD_END
-  //     });
-  //   }
-  // };
-
   handleSubjectGroupSubmit = data => {
     this.setState({subjectGroups: data});
     const dataset = this.state.dataset;
@@ -312,13 +262,6 @@ class Wizard extends React.Component {
       wizardStep: WIZARD_STEP_TISSUE_SAMPLES
     });
   };
- 
-  // goBackToDatasetWizard = () => {
-  //   this.setState({
-  //     schema: datasetSchema,
-  //     wizardStep: WIZARD_STEP_DATASET
-  //   });
-  // };
 
   goBackToGeneralWizard = () => {
     this.setState({
@@ -495,10 +438,6 @@ class Wizard extends React.Component {
         return (
           <ExperimentWizard schema={schema} formData={this.state.experiment} onSubmit={this.handleExperimentSubmit} onBack={this.handleGoBackToPreviousStepWizard} />
         );
-      // case WIZARD_STEP_DATASET:
-      //   return (
-      //     <DatasetWizard schema={schema} formData={this.state.dataset} onSubmit={this.handleDatasetSubmit} />
-      //   );
       case WIZARD_STEP_SUBJECT_GROUP:
         return (
           <SubjectGroupWizard schema={schema} formData={this.state.subjectGroups} onSubmit={this.handleSubjectGroupSubmit} onBack={this.handleGoBackToPreviousStepWizard} />
