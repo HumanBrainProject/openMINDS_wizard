@@ -1,6 +1,8 @@
-import * as datasetSchemaModule from '../schema/datasetSchema.json';
-import * as subjectSchemaModule from '../schema/subjectSchema.json';
-import * as tissueSampleSchemaModule from '../schema/tissueSampleSchema.json'; 
+import * as datasetSchemaModule from '../schemas/datasetSchema.json';
+import * as generalSchemaModule from '../schemas/generalSchema.json';
+import * as experimentSchemaModule from '../schemas/experimentSchema.json';
+import * as subjectSchemaModule from '../schemas/subjectSchema.json';
+import * as tissueSampleSchemaModule from '../schemas/tissueSampleSchema.json'; 
 
 import * as biologicalSexModule from '../controlledTerms/biologicalSex.json'; 
 import * as cellTypeModule from '../controlledTerms/cellType.json'; 
@@ -35,22 +37,22 @@ const getUnitOfMeasurementLabel = identifier => {
   return item?item.name:"";
 };
 
-const populateSchmaWithControlledTerms = schema => {
+const populateSchemaWithControlledTerms = schema => {
   if (typeof schema === "object") {
     switch (schema.type) {
       case "object":
-        typeof schema.definitions === "object" && Object.values(schema.definitions).forEach(element => populateSchmaWithControlledTerms(element));
-        typeof schema.properties === "object" && Object.values(schema.properties).forEach(element => populateSchmaWithControlledTerms(element));
+        typeof schema.definitions === "object" && Object.values(schema.definitions).forEach(element => populateSchemaWithControlledTerms(element));
+        typeof schema.properties === "object" && Object.values(schema.properties).forEach(element => populateSchemaWithControlledTerms(element));
         typeof schema.dependencies === "object" && Object.entries(schema.dependencies).forEach(([dependency, object]) => {
           Array.isArray(object.oneOf) && object.oneOf.forEach(dependent => {
             dependent.properties === "object" && Object.entries(dependent.properties)
               .filter(([key]) => key !== dependency)
-              .forEach(([, element]) => populateSchmaWithControlledTerms(element));
+              .forEach(([, element]) => populateSchemaWithControlledTerms(element));
           });
         });
         break;
       case "array":
-        populateSchmaWithControlledTerms(schema.items);
+        populateSchemaWithControlledTerms(schema.items);
         break;
       case "string":
         const controlledTerm = schema.controlledTerm && controlledTerms[schema.controlledTerm];
@@ -75,9 +77,11 @@ const getSubjectEnumList =  subjects => {
   }, acc), []);
 };
 
-export const datasetSchema = populateSchmaWithControlledTerms(datasetSchemaModule.default);
-export const subjectSchema = populateSchmaWithControlledTerms(subjectSchemaModule.default);
-export const tissueSampleSchema = populateSchmaWithControlledTerms(tissueSampleSchemaModule.default);
+export const datasetSchema = populateSchemaWithControlledTerms(datasetSchemaModule.default);
+export const generalSchema = populateSchemaWithControlledTerms(generalSchemaModule.default);
+export const experimentSchema = populateSchemaWithControlledTerms(experimentSchemaModule.default);
+export const subjectSchema = populateSchemaWithControlledTerms(subjectSchemaModule.default);
+export const tissueSampleSchema = populateSchemaWithControlledTerms(tissueSampleSchemaModule.default);
 
 export const areSubjectsGrouped = dataset => !dataset || !dataset.individualSubjects;
 

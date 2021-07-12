@@ -1,0 +1,49 @@
+{
+    "title": "General",
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "title": "Name"
+      },
+      "description": {
+        "type": "string",
+        "title": "Description"
+      },
+      "versionNumber": {
+        "type": "string",
+        "title": "Version number"
+      },
+      "accessibility": {
+        "type": "string",
+        "title": "Accessibility",
+        "controlledTerm": "productAccessibility"
+      },
+      "type": {
+        "type": "string",
+        "title": "Type",
+        "controlledTerm": "semanticDataType"
+      },
+      "license": {
+        "type": "string",
+        "title": "License",
+        "controlledTerm": "license"
+      },
+      "repositoryUrl": {
+        "type": "string",
+        "title": "Repository URL"
+      },
+      "keyword": {
+        "type": "array",
+        "title": "Keywords",
+        "items": {
+          "type": "string"
+        }
+      },
+      "releasedDate": {
+        "type": "string",
+        "format": "date",
+        "title": "Released date"
+      }
+  }
+}

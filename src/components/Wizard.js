@@ -1,5 +1,9 @@
 import React from 'react';
 
+import GeneralWizard from './Wizard/GeneralWizard';
+import ReferencesAndContributionsWizard from './Wizard/ReferencesAndContributionsWizard';
+import ResourcesAndLegalWizard from './Wizard/ResourcesAndLegalWizard';
+import ExperimentWizard from './Wizard/ExperimentWizard.js';
 import DatasetWizard from './Wizard/DatasetWizard';
 import SubjectGroupWizard from './Wizard/SubjectGroupWizard';
 import SubjectTemplateWizard from './Wizard/SubjectTemplateWizard';
@@ -21,6 +25,8 @@ import {
 
 import {
   datasetSchema,
+  generalSchema,
+  experimentSchema,
   areSubjectsGrouped,
   areTissueSamplesGrouped,
   getNumberOfSubjects,
@@ -37,11 +43,21 @@ import {
   generateItemsFromTemplate
 } from '../helpers/Wizard';
 
+import * as referencesAndContributionsModule from '../schemas/referencesAndContributions.json';
+import * as resourcesAndLegalModule from '../schemas/resourcesAndLegal.json';
+
+const referencesAndContributionsSchema = referencesAndContributionsModule.default;
+const resourcesAndLegalSchema = resourcesAndLegalModule.default;
+
 const STUDY_TOPIC_SUBJECT_VALUE = "Subject";
 const STUDY_TOPIC_TISSUE_SAMPLE_VALUE = "Tissue sample";
 const STUDY_TOPIC_ARTIFICIAL_TISSUE_SAMPLE_VALUE = "Artificial tissue sample";
 
 const WIZARD_STEP_DATASET = "WIZARD_STEP_DATASET";
+const WIZARD_STEP_GENERAL = "WIZARD_STEP_GENERAL";
+const WIZARD_STEP_REFERENCES_AND_CONTRIBUTIONS = "WIZARD_STEP_REFERENCES_AND_CONTRIBUTIONS";
+const WIZARD_STEP_RESOURCES_AND_LEGAL = "WIZARD_STEP_RESOURCES_AND_LEGAL";
+const WIZARD_STEP_EXPERIMENT = "WIZARD_STEP_EXPERIMENT";
 const WIZARD_STEP_SUBJECT_GROUP = "WIZARD_STEP_SUBJECT_GROUP";
 const WIZARD_STEP_SUBJECT_TEMPLATE = "WIZARD_STEP_SUBJECT_TEMPLATE";
 const WIZARD_STEP_SUBJECTS = "WIZARD_STEP_SUBJECTS";
@@ -54,21 +70,53 @@ class Wizard extends React.Component {
     super(props);
     this.state = {
       dataset: undefined,
+      general: undefined,
+      referencesAndContributions: undefined,
+      resourcesAndLegal: undefined,
+      experiment: undefined,
       subjectGroups: undefined,
       subjectTemplate: undefined,
       subjects: [],
       tissueSampleCollections: undefined,
       tissueSampleTemplate: undefined,
       tissueSamples: [],
-      wizardStep: WIZARD_STEP_DATASET,
-      schema: datasetSchema,
+      wizardStep: WIZARD_STEP_GENERAL,
+      schema: generalSchema,
       result: undefined
     }
   }
 
-  handleDatasetSubmit =data => {
+  handleGeneralSubmit = data => {
+    this.setState({
+      general: data,
+      wizardStep: WIZARD_STEP_REFERENCES_AND_CONTRIBUTIONS,
+      schema: referencesAndContributionsSchema
+    });
+  };
+
+  handleReferencesAndContributionsSubmit = data => {
+    this.setState({
+      referencesAndContributions: data,
+      wizardStep: WIZARD_STEP_RESOURCES_AND_LEGAL,
+      schema: resourcesAndLegalSchema
+    });
+  }
+
+  handleResourcesAndLegalSubmit = data => {
+    this.setState({
+      resourcesAndLegal: data,
+      wizardStep: WIZARD_STEP_EXPERIMENT,
+      schema: experimentSchema
+    });
+  }
+
+  handleExperimentSubmit = data => {
     const studyTopic = getStudyTopic(data);
-    this.setState({dataset: data});
+    const dataset = {...this.state.general, ...this.state.referencesAndContributions, ...this.state.resourcesAndLegal, ...data};
+    this.setState(prevState => ({
+      dataset: {...prevState.general, ...prevState.referencesAndContributions, ...prevState.resourcesAndLegal, ...data}, 
+      experiment: data
+    }));
     
     if (studyTopic === STUDY_TOPIC_SUBJECT_VALUE) {
       if (areSubjectsGrouped(data)) {
@@ -105,13 +153,60 @@ class Wizard extends React.Component {
         });
       }
     } else {
-      const res = generateDocumentsFromDataset(data);
+      const res = generateDocumentsFromDataset(dataset);
       this.setState({
         result: res,
         wizardStep: WIZARD_END
       });
     }
-  };
+  }
+
+  // handleDatasetSubmit = data => {
+  //   const studyTopic = getStudyTopic(data);
+  //   this.setState({dataset: data});
+    
+  //   if (studyTopic === STUDY_TOPIC_SUBJECT_VALUE) {
+  //     if (areSubjectsGrouped(data)) {
+  //       const subjectGroupsSchema = getSubjectGroupsSchema(data);
+  //       this.setState({
+  //         schema: subjectGroupsSchema,
+  //         wizardStep: WIZARD_STEP_SUBJECT_GROUP
+  //       });
+  //     } else {
+  //       const subjectTemplateSchema = getSubjectTemplateSchema();
+  //       this.setState({
+  //         schema: subjectTemplateSchema,
+  //         wizardStep: WIZARD_STEP_SUBJECT_TEMPLATE
+  //       });
+  //     }
+  //   } else if (studyTopic === STUDY_TOPIC_TISSUE_SAMPLE_VALUE) {
+  //     const subjectGroupsSchema = getSubjectGroupsSchemaForTissueSample();
+  //     this.setState({
+  //       schema: subjectGroupsSchema,
+  //       wizardStep: WIZARD_STEP_SUBJECT_GROUP
+  //     });
+  //   } else if (studyTopic === STUDY_TOPIC_ARTIFICIAL_TISSUE_SAMPLE_VALUE) {
+  //     if (areTissueSamplesGrouped(data)) {
+  //       const tissueSampleCollectionsSchema = getTissueSampleCollectionsSchema(data);
+  //       this.setState({
+  //         schema: tissueSampleCollectionsSchema,
+  //         wizardStep: WIZARD_STEP_TISSUE_SAMPLE_GROUP
+  //       });
+  //     } else {
+  //       const tissueSampleTemplateSchema = getArtificialTissueSampleTemplateSchema();
+  //       this.setState({
+  //         schema: tissueSampleTemplateSchema,
+  //         wizardStep: WIZARD_STEP_TISSUE_SAMPLE_TEMPLATE
+  //       });
+  //     }
+  //   } else {
+  //     const res = generateDocumentsFromDataset(data);
+  //     this.setState({
+  //       result: res,
+  //       wizardStep: WIZARD_END
+  //     });
+  //   }
+  // };
 
   handleSubjectGroupSubmit = data => {
     this.setState({subjectGroups: data});
@@ -218,14 +313,40 @@ class Wizard extends React.Component {
     });
   };
  
-  goBackToDatasetWizard = () => {
+  // goBackToDatasetWizard = () => {
+  //   this.setState({
+  //     schema: datasetSchema,
+  //     wizardStep: WIZARD_STEP_DATASET
+  //   });
+  // };
+
+  goBackToGeneralWizard = () => {
     this.setState({
-      schema: datasetSchema,
-      result: null,
-      wizardStep: WIZARD_STEP_DATASET
+      schema: generalSchema,
+      wizardStep: WIZARD_STEP_GENERAL
+    });
+  }
+
+  goBackToReferencesAndContributions = () => {
+    this.setState({
+      schema: referencesAndContributionsSchema,
+      wizardStep: WIZARD_STEP_REFERENCES_AND_CONTRIBUTIONS
     });
   };
 
+  goBackToResourcesAndLegal = () => {
+    this.setState({
+      schema: resourcesAndLegalSchema,
+      wizardStep: WIZARD_STEP_RESOURCES_AND_LEGAL
+    });
+  }
+
+  goBackToExperiment = () => {
+    this.setState({
+      schema: experimentSchema,
+      wizardStep: WIZARD_STEP_EXPERIMENT
+    });
+  }
 
   goBackToSubjectTemplateWizard = () => {  
     const subjectTemplateSchema = getSubjectTemplateSchema();
@@ -288,14 +409,23 @@ class Wizard extends React.Component {
     switch (this.state.wizardStep) {
       case WIZARD_STEP_SUBJECT_GROUP:
       case WIZARD_STEP_SUBJECT_TEMPLATE:
-        this.goBackToDatasetWizard();
+        this.goBackToExperiment();
+        break;
+      case WIZARD_STEP_REFERENCES_AND_CONTRIBUTIONS:
+        this.goBackToGeneralWizard();
+        break;
+      case WIZARD_STEP_RESOURCES_AND_LEGAL:
+        this.goBackToReferencesAndContributions();
+        break;
+      case WIZARD_STEP_EXPERIMENT:
+        this.goBackToResourcesAndLegal();
         break;
       case WIZARD_STEP_TISSUE_SAMPLE_GROUP:
       case WIZARD_STEP_TISSUE_SAMPLE_TEMPLATE:
         if (studyTopic === STUDY_TOPIC_TISSUE_SAMPLE_VALUE) {
           this.goBackToSubjectGroupsWizard();
         } else { // if (studyTopic === STUDY_TOPIC_ARTIFICIAL_TISSUE_SAMPLE_VALUE)
-          this.goBackToDatasetWizard();
+          this.goBackToExperiment();
         }
         break;
       case WIZARD_STEP_SUBJECTS:
@@ -318,11 +448,11 @@ class Wizard extends React.Component {
             this.goBackToTissueSamplesWizard();  
           }
         } else {
-          this.goBackToDatasetWizard();
+          this.goBackToExperiment();
         }
         break;
       default:
-        this.goBackToDatasetWizard();
+        this.goBackToExperiment();
         break;
     }
   };
@@ -330,25 +460,45 @@ class Wizard extends React.Component {
   handleReset = () => {
     this.setState({
       dataset: undefined,
+      general: undefined,
+      referencesAndContributions: undefined,
+      resourcesAndLegal: undefined,
+      experiment: undefined,
       subjectGroups: null,
       subjectTemplate: null,
       subjects: [],
       tissueSamples: [],
       tissueSampleCollections: [],
       tissueSampleTemplate: null,
-      schema: datasetSchema,
+      schema: generalSchema,
       result: null,
-      wizardStep: WIZARD_STEP_DATASET
+      wizardStep: WIZARD_STEP_GENERAL
     });
   };
 
   render() {
     const schema = this.state.schema;
     switch (this.state.wizardStep) {
-      case WIZARD_STEP_DATASET:
+      case WIZARD_STEP_GENERAL:
         return (
-          <DatasetWizard schema={schema} formData={this.state.dataset} onSubmit={this.handleDatasetSubmit} />
+          <GeneralWizard schema={schema} formData={this.state.general} onSubmit={this.handleGeneralSubmit} />
         );
+      case WIZARD_STEP_REFERENCES_AND_CONTRIBUTIONS:
+        return (
+          <ReferencesAndContributionsWizard schema={schema} formData={this.state.referencesAndContributions} onSubmit={this.handleReferencesAndContributionsSubmit} onBack={this.handleGoBackToPreviousStepWizard} />
+        );
+      case WIZARD_STEP_RESOURCES_AND_LEGAL:
+        return (
+          <ResourcesAndLegalWizard schema={schema} formData={this.state.resourcesAndLegal} onSubmit={this.handleResourcesAndLegalSubmit} onBack={this.handleGoBackToPreviousStepWizard} />
+        );
+      case WIZARD_STEP_EXPERIMENT:
+        return (
+          <ExperimentWizard schema={schema} formData={this.state.experiment} onSubmit={this.handleExperimentSubmit} onBack={this.handleGoBackToPreviousStepWizard} />
+        );
+      // case WIZARD_STEP_DATASET:
+      //   return (
+      //     <DatasetWizard schema={schema} formData={this.state.dataset} onSubmit={this.handleDatasetSubmit} />
+      //   );
       case WIZARD_STEP_SUBJECT_GROUP:
         return (
           <SubjectGroupWizard schema={schema} formData={this.state.subjectGroups} onSubmit={this.handleSubjectGroupSubmit} onBack={this.handleGoBackToPreviousStepWizard} />

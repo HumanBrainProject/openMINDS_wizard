@@ -1,0 +1,77 @@
+{
+    "title": "Experiment",
+    "type": "object",
+    "properties": {
+      "ethicsAssessment": {
+        "type": "string",
+        "title": "Ethics assessment",
+        "controlledTerm": "ethicsAssessment"
+      },
+      "experimentalApproach": {
+        "type": "string",
+        "title": "Experimental approach",
+        "controlledTerm": "experimentalApproach"
+      },
+      "studyTopic": {
+        "type": "string",
+        "title": "What have you been studying?",
+        "enum": [
+          "Subject",
+          "Tissue sample",
+          "Artificial tissue sample"
+        ]
+      }
+    },
+    "dependencies": {
+      "studyTopic": {
+        "oneOf": [
+          {
+            "properties": {
+              "studyTopic": {
+                "enum": [
+                  null
+                ]
+              }
+            }
+          },
+          {
+            "properties": {
+              "studyTopic": {
+                "enum": [
+                  "Subject"
+                ]
+              },
+              "numberOfSubjects": {
+                "type": "number",
+                "title": "How many subjects did you study?",
+                "minimum": 1
+              },
+              "individualSubjects": {
+                "type": "boolean",
+                "title": "Do you have individual subject information?"
+              }
+            }
+          },
+          {
+            "properties": {
+              "studyTopic": {
+                "enum": [
+                  "Tissue sample",
+                  "Artificial tissue sample"
+                ]
+              },
+              "numberOfTissueSamples": {
+                "type": "number",
+                "title": "How many tissue samples did you study?",
+                "minimum": 1
+              },
+              "individualTissueSamples": {
+                "type": "boolean",
+                "title": "Do you have individual tissue sample information?"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
