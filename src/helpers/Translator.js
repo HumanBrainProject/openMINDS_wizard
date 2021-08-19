@@ -277,7 +277,7 @@ const createDatasetDocument = (documents, source) => {
     const datasetId = createDocument(documents, `${OPENMINDS_VOCAB}DatasetVersion`, source.name);
     const dataset = documents.ids[datasetId];
 
-    setPropertyWithLinks(dataset, "accessibility", [source.accessibility]);
+    setPropertyWithLinks(dataset, "accessibility", source.accessibility);
     setProperty(dataset, "description", source.description);
     setProperty(dataset, "name", source.name);
     setProperty(dataset, "keyword", source.keyword);
